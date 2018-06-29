@@ -1,0 +1,16 @@
+{
+  "name": "gdpr",
+  "version": "1.0.0",
+  "description": "gdpr opt in",
+  "main": "gdpr.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --ui tdd test/**/*.test.js --reporter spec"
+  },
+  "author": "Tom Coemans",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "4.1.2",
+    "jsdom": "11.11.0",
+    "mocha": "5.2.0"
+  }
+}

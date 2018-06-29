@@ -33,11 +33,11 @@ De DOM zal uitgebreid worden met 2 elementen:
 Standaard werd er een zeer eenvoudige stijl voorzien die gebaseerd is op de Vlaamse overheid huisstijl. Uiteraard is het mogelijk om deze stijl te overschrijven. Wij hebben enkele id's voorzien die hiervoor gebruikt kunnen worden. Het stijlen via HTML element tags is mogelijk, maar me garanderen niet dat deze in toekomstige versies ongewijzigd zullen blijven. Indien er nood is om specifieke elementen te stijlen, kan hiervoor altijd een id toegevoegd worden.
 
 Momenteel zijn volgende id's voorzien:
-* <span style='color:red'>#gdpr_overlay</span>
-* <span style='color:yellow'>#gdpr_modal</span>
-* <span style='color:green'>#gdpr_modal_titel</span>
-* <span style='color:orange'>#gdpr_modal_tekst</span>
-* <span style='color:blue'>#gdpr_modal_confirm_btn</span>
+* (https://placehold.it/15/fc0d1c/000000?text=+) #gdpr_overlay
+* (https://placehold.it/15/fffd38/000000?text=+) #gdpr_modal
+* (https://placehold.it/15/0e7e12/000000?text=+) #gdpr_modal_titel
+* (https://placehold.it/15/fda429/000000?text=+) #gdpr_modal_tekst
+* (https://placehold.it/15/0b24fb/000000?text=+) #gdpr_modal_confirm_btn
 
 ![Alt text](https://github.com/milieuinfo/gdpr/blob/master/img/readme2.png?raw=true "GDPR HTML id")
 

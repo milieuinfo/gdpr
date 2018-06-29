@@ -12,6 +12,10 @@ Het gebruik van de GDPR opt in modal is zeer eenvoudig. Je moet alleen maar een 
 <script src="gdpr.js"></script>
 ```
 
+Na het toevoegen van bovenstaand script zal er automatisch bij het laden van de pagina een GDPR modal getoond worden:
+
+![Alt text](img/readme1.png?raw=true "GDPR modal voorbeeld")
+
 ## Ontwikkelaars
 
 * **Tom Coemans** - *setup en eerste ontwikkling* - [Coemans](https://github.com/coemans)

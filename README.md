@@ -24,6 +24,24 @@ Het is uiteraard ook mogelijk om de standaard opt in aan te passen:
 <script src="gdpr.js" analytics="false"></script>
 ```
 
+### Beschikbare functies
+
+De GDPR voorziet enkele publieke functies die vrij en altijd aangeroepen kunnen worden.
+
+#### GDPR opt in leegmaken
+De GDPR opt in modal maakt gebruik van cookies om de opt in waarden te bewaren. Het is mogelijk om de cookies te resetten.
+
+```
+GDPR.reset();
+```
+
+#### GDPR opt in modal openen
+De GDPR opt in modal wordt slechts één keer getoond aan de gebruikern. Indien je de gebruiker bijvoorbeeld de optie wilt geven om nadien de opt in waarden aan te passen, kan de GDPR modal manueel geopend worden.
+
+```
+GDPR.open();
+```
+
 ## Stijl
 
 De DOM zal uitgebreid worden met 2 elementen:

@@ -86,18 +86,21 @@
 		function createModalTitleElement() {
 			var element = document.createElement('h2');
 			element.textContent = 'GDPR titel';
+			element.setAttribute('id', 'gdpr_modal_titel');
 			return element;
 		}
 		
 		function createModalTextElement() {
 			var element = document.createElement('p');
 			element.textContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+			element.setAttribute('id', 'gdpr_modal_tekst');
 			return element;
 		}
 		
 		function createModalConfirmButton() {
 			var element = document.createElement('button');
 			element.textContent = 'bewaar';
+			element.setAttribute('id', 'gdpr_modal_confirm_btn');
 			element.onclick = function() {
 				close();
 			};

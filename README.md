@@ -16,7 +16,12 @@ Na het toevoegen van bovenstaand script zal er automatisch bij het laden van de 
 
 ![Alt text](https://github.com/milieuinfo/gdpr/blob/master/img/readme1.png?raw=true "GDPR modal voorbeeld")
 
+### Gebruikersstatistieken
+
 Zoals je in het voorbeeld kan zien, zal er standaard gevraagd worden aan de gebruiker of hij de toestemming geeft voor gebruikersstatistieken. Indien hij hiermee toestemt, zal achterliggend en automatisch Matomo ingeschakeld worden en zullen er voor heel de applicatie gebruikersstatistieken bijgehouden worden.
+
+#### Opgelet domein
+Opgelet, voor het correct registreren van de gebruikersstatistieken moet het domein moet wel correct zijn: bijvoorbeeld domein.milieuinfo.be.
 
 Het is uiteraard ook mogelijk om de standaard opt in aan te passen:
 

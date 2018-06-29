@@ -33,6 +33,7 @@ De DOM zal uitgebreid worden met 2 elementen:
 Standaard werd er een zeer eenvoudige stijl voorzien die gebaseerd is op de Vlaamse overheid huisstijl. Uiteraard is het mogelijk om deze stijl te overschrijven. Wij hebben enkele id's voorzien die hiervoor gebruikt kunnen worden. Het stijlen via HTML element tags is mogelijk, maar me garanderen niet dat deze in toekomstige versies ongewijzigd zullen blijven. Indien er nood is om specifieke elementen te stijlen, kan hiervoor altijd een id toegevoegd worden.
 
 Momenteel zijn volgende id's voorzien:
+* ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `#f03c15`
 * (https://placehold.it/15/fc0d1c/000000?text=+) #gdpr_overlay
 * (https://placehold.it/15/fffd38/000000?text=+) #gdpr_modal
 * (https://placehold.it/15/0e7e12/000000?text=+) #gdpr_modal_titel

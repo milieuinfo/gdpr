@@ -45,21 +45,15 @@
 			if (!getCookie('gdpr') || forced) {
 				document.body.appendChild(modalElement || createModalElement());
 				document.body.appendChild(overlayElement || createOverlayElement());
+			} else {
+				processOptIns();
 			}
 		}
 		
 		function close() {
 			document.body.removeChild(modalElement);
 			document.body.removeChild(overlayElement);
-			
-			if (optIns['matomo']) {
-				var optIn = optIns['matomo'].value;
-				setCookie('matomo', optIn || false);
-				if (optIn) {
-					document.head.appendChild(createMatomaScript());
-				}
-			}
-			
+			processOptIns();
 			setCookie('gdpr', true);
 		}
 		
@@ -132,6 +126,7 @@
 		
 		function createMatomaScript() {
 			var element = document.createElement('script');
+			element.setAttribute('id', 'gdpr_matomo_script');
 			var script = document.createTextNode("" +
 				"var _paq = _paq || [];" +
 				"_paq.push(['trackPageView']);" +
@@ -179,6 +174,16 @@
 		
 		function deleteCookie(name) {
 			document.cookie = cookiePrefix + name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
+		}
+		
+		function processOptIns() {
+			if (optIns['matomo']) {
+				var optIn = optIns['matomo'].value;
+				setCookie('matomo', optIn || false);
+				if (optIn) {
+					document.head.appendChild(createMatomaScript());
+				}
+			}
 		}
 		
 		function getStyle() {

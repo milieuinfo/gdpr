@@ -1,5 +1,6 @@
 const chai = require('chai');
 const jsdom = require('jsdom');
+const sinon = require('sinon');
 
 const { assert } = chai;
 const { JSDOM } = jsdom;
@@ -14,6 +15,12 @@ function setup() {
 		resources: 'usable'
 	});
 }
+
+const sandbox = sinon.sandbox.create();
+
+teardown(() => {
+	sandbox.restore();
+});
 
 suite('gdpr', function() {
 	test('het laden van het gdpr script zal een GDPR object op de window zetten', function(done) {
@@ -66,14 +73,21 @@ suite('gdpr', function() {
 		});
 	});
 	
-	test('wanneer de GDPR modal ooit al eens gesloten werd, zal deze niet meer getoond worden', function(done) {
+	test('wanneer de GDPR modal ooit al eens gesloten werd, zal deze niet meer getoond worden maar zullen de gebruikersstatistieken wel werken', function(done) {
 		let dom = setup();
 		let window = dom.window;
 		let document = window.document;
+		const stub = sandbox.stub();
+		stub.returns(document.createElement('script'));
+		document.createTextNode = stub;
 		document.cookie = 'vo_gdpr=true;2147483647;path=/';
+		document.cookie = 'vo_matomo=true;2147483647;path=/';
 		dom.window.addEventListener('load', function() {
 			let gdprModal = document.getElementById('gdpr_modal');
 			assert.notExists(document.getElementById('gdpr_modal'));
+			assert.exists(document.getElementById('gdpr_matomo_script'));
+			assert.include(document.cookie, 'vo_matomo');
+			assert(stub.called);
 			done();
 		});
 	});

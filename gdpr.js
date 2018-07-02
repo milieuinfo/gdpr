@@ -22,6 +22,8 @@
 			deleteCookie('gdpr');
 			Object.values(optIns).forEach(function(optIn) {
 				deleteCookie(optIn.name);
+				delete optIn.value;
+				optIn.deactivate();
 			});
 		}
 		
@@ -36,7 +38,16 @@
 				optIns['matomo'] = {
 					'name': 'matomo',
 					'label': 'matomo',
-					'value': getCookie('matomo')
+					'value': getCookie('matomo'),
+					'activate': function() {
+						document.head.appendChild(createMatomaScript());
+					},
+					'deactivate': function() {
+						var script = document.getElementById('gdpr_matomo_script');
+						if (script) {
+							document.head.removeChild(document.getElementById('gdpr_matomo_script'));
+						}
+					}
 				}
 			}
 		}
@@ -53,6 +64,7 @@
 		function close() {
 			document.body.removeChild(modalElement);
 			document.body.removeChild(overlayElement);
+			processOptInCookies();
 			processOptIns();
 			setCookie('gdpr', true);
 		}
@@ -176,14 +188,16 @@
 			document.cookie = cookiePrefix + name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
 		}
 		
+		function processOptInCookies() {
+			Object.values(optIns).forEach(function(optIn) {
+				setCookie(optIn.name, optIn.value || false);
+			});
+		}
+		
 		function processOptIns() {
-			if (optIns['matomo']) {
-				var optIn = optIns['matomo'].value;
-				setCookie('matomo', optIn || false);
-				if (optIn) {
-					document.head.appendChild(createMatomaScript());
-				}
-			}
+			Object.values(optIns).forEach(function(optIn) {
+				optIn.value ? optIn.activate() : optIn.deactivate();
+			});
 		}
 		
 		function getStyle() {

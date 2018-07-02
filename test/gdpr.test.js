@@ -73,7 +73,19 @@ suite('gdpr', function() {
 		});
 	});
 	
-	test('wanneer de GDPR modal ooit al eens gesloten werd, zal deze niet meer getoond worden maar zullen de gebruikersstatistieken wel werken', function(done) {
+	test('wanneer de GDPR modal ooit al eens gesloten werd, zal deze niet meer getoond worden', function(done) {
+		let dom = setup();
+		let window = dom.window;
+		let document = window.document;
+		document.cookie = 'vo_gdpr=true;2147483647;path=/';
+		dom.window.addEventListener('load', function() {
+			let gdprModal = document.getElementById('gdpr_modal');
+			assert.notExists(document.getElementById('gdpr_modal'));
+			done();
+		});
+	});
+	
+	test('wanneer de GDPR modal niet meer getoond moet worden maar de gebruikersstatisteieken zullen verwerkt worden indien ze eerder goedgekeurd werden', function(done) {
 		let dom = setup();
 		let window = dom.window;
 		let document = window.document;
@@ -83,8 +95,6 @@ suite('gdpr', function() {
 		document.cookie = 'vo_gdpr=true;2147483647;path=/';
 		document.cookie = 'vo_matomo=true;2147483647;path=/';
 		dom.window.addEventListener('load', function() {
-			let gdprModal = document.getElementById('gdpr_modal');
-			assert.notExists(document.getElementById('gdpr_modal'));
 			assert.exists(document.getElementById('gdpr_matomo_script'));
 			assert.include(document.cookie, 'vo_matomo');
 			assert(stub.called);
@@ -102,6 +112,23 @@ suite('gdpr', function() {
 			assert.notExists(document.getElementById('gdpr_modal'));
 			window.GDPR.open();
 			assert.exists(document.getElementById('gdpr_modal'));
+			done();
+		});
+	});
+	
+	test('de gebruikersstatistieken kunnen later uitgezet worden en er zullen dan geen gebruikersstatistieken meer verwerkt worden', function(done) {
+		let dom = setup();
+		let window = dom.window;
+		let document = window.document;
+		const stub = sandbox.stub();
+		stub.returns(document.createElement('script'));
+		document.createTextNode = stub;
+		document.cookie = 'vo_gdpr=true;2147483647;path=/';
+		document.cookie = 'vo_matomo=true;2147483647;path=/';
+		dom.window.addEventListener('load', function() {
+			assert.exists(document.getElementById('gdpr_matomo_script'));
+			window.GDPR.reset();
+			assert.notExists(document.getElementById('gdpr_matomo_script'));
 			done();
 		});
 	});

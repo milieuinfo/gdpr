@@ -40,7 +40,7 @@
 					'label': 'matomo',
 					'value': getCookie('matomo'),
 					'activate': function() {
-						document.head.appendChild(createMatomaScript());
+						document.head.appendChild(createMatomoScript());
 					},
 					'deactivate': function() {
 						var script = document.getElementById('gdpr_matomo_script');
@@ -136,7 +136,7 @@
 			return overlayElement = element;
 		}
 		
-		function createMatomaScript() {
+		function createMatomoScript() {
 			var element = document.createElement('script');
 			element.setAttribute('id', 'gdpr_matomo_script');
 			var script = document.createTextNode("" +
@@ -149,7 +149,25 @@
 					"_paq.push(['setSiteId', '13']);" +
 					"var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];" +
 					"g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);" +
-				"})();");
+				"})();" +
+				"" +
+				"var currentUrl = location.href;" +
+				"window.addEventListener('hashchange', function() {" +
+					"_paq.push(['setReferrerUrl', currentUrl]);" +
+					"currentUrl = '' + window.location.hash.substr(1);" +
+					"_paq.push(['setCustomUrl', currentUrl]);" +
+					"_paq.push(['setDocumentTitle', 'My New Title']);" +
+					"_paq.push(['deleteCustomVariables', 'page']);" +
+					"_paq.push(['setGenerationTimeMs', 0]);" +
+					"_paq.push(['trackPageView']);" +
+					"var content = document.getElementById('content');" +
+					"_paq.push(['MediaAnalytics::scanForMedia', content]);" +
+					"_paq.push(['FormAnalytics::scanForForms', content]);" +
+					"_paq.push(['trackContentImpressionsWithinNode', content]);" +
+					"" +
+					"_paq.push(['enableLinkTracking']);" +
+				"});"
+			);
 			element.appendChild(script);
 			return element;
 		}

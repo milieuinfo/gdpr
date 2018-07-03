@@ -43,10 +43,8 @@
 						document.head.appendChild(createMatomoScript());
 					},
 					'deactivate': function() {
-						var script = document.getElementById('gdpr_matomo_script');
-						if (script) {
-							document.head.removeChild(document.getElementById('gdpr_matomo_script'));
-						}
+						deleteScript('gdpr_matomo_script');
+						deleteScript('gdpr_matomo_piwik_script');
 					}
 				}
 			}
@@ -119,6 +117,7 @@
 			var span = document.createElement('span');
 			span.textContent = data ? data.label : '';
 			var checkbox = document.createElement('input');
+			checkbox.setAttribute('id', data.name + '_input');
 			checkbox.type = 'checkbox';
 			checkbox.checked = data.value;
 			checkbox.onchange = function(event) {
@@ -137,39 +136,61 @@
 		}
 		
 		function createMatomoScript() {
+			var matomo = getMatomoId();
 			var element = document.createElement('script');
 			element.setAttribute('id', 'gdpr_matomo_script');
-			var script = document.createTextNode("" +
-				"var _paq = _paq || [];" +
-				"_paq.push(['trackPageView']);" +
-				"_paq.push(['enableLinkTracking']);" +
-				"(function() {" +
-					"var u='//stats-ontwikkel.milieuinfo.be/';" +
-					"_paq.push(['setTrackerUrl', u+'piwik.php']);" +
-					"_paq.push(['setSiteId', '13']);" +
-					"var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];" +
-					"g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);" +
-				"})();" +
-				"" +
-				"var currentUrl = location.href;" +
-				"window.addEventListener('hashchange', function() {" +
-					"_paq.push(['setReferrerUrl', currentUrl]);" +
-					"currentUrl = '' + window.location.hash.substr(1);" +
-					"_paq.push(['setCustomUrl', currentUrl]);" +
-					"_paq.push(['setDocumentTitle', 'My New Title']);" +
-					"_paq.push(['deleteCustomVariables', 'page']);" +
-					"_paq.push(['setGenerationTimeMs', 0]);" +
+			if (matomo) {
+				var script = document.createTextNode("" +
+					"var _paq = _paq || [];" +
 					"_paq.push(['trackPageView']);" +
-					"var content = document.getElementById('content');" +
-					"_paq.push(['MediaAnalytics::scanForMedia', content]);" +
-					"_paq.push(['FormAnalytics::scanForForms', content]);" +
-					"_paq.push(['trackContentImpressionsWithinNode', content]);" +
-					"" +
 					"_paq.push(['enableLinkTracking']);" +
-				"});"
-			);
-			element.appendChild(script);
+					"(function() {" +
+						"var u='" + matomo.url + "';" +
+						"_paq.push(['setTrackerUrl', u+'piwik.php']);" +
+						"_paq.push(['setSiteId', " + matomo.id + "]);" +
+						"var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];" +
+						"g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; g.id='gdpr_matomo_piwik_script'; s.parentNode.insertBefore(g,s);" +
+					"})();" +
+					"" +
+					"var currentUrl = location.href;" +
+					"window.addEventListener('hashchange', function() {" +
+						"_paq.push(['setReferrerUrl', currentUrl]);" +
+						"currentUrl = '' + window.location.hash.substr(1);" +
+						"_paq.push(['setCustomUrl', currentUrl]);" +
+						"_paq.push(['setDocumentTitle', 'My New Title']);" +
+						"_paq.push(['deleteCustomVariables', 'page']);" +
+						"_paq.push(['setGenerationTimeMs', 0]);" +
+						"_paq.push(['trackPageView']);" +
+						"var content = document.getElementById('content');" +
+						"_paq.push(['MediaAnalytics::scanForMedia', content]);" +
+						"_paq.push(['FormAnalytics::scanForForms', content]);" +
+						"_paq.push(['trackContentImpressionsWithinNode', content]);" +
+						"_paq.push(['enableLinkTracking']);" +
+					"});"
+				);
+				element.appendChild(script);
+			}
 			return element;
+		}
+		
+		function deleteScript(id) {
+			var script = document.getElementById(id);
+			if (script) {
+				document.head.removeChild(document.getElementById(id));
+			}
+		}
+		
+		function getMatomoId() {
+			var match = {
+				'zendantennes-ontwikkel.milieuinfo.be': {
+					'id': 13,
+					'url': '//stats-ontwikkel.milieuinfo.be/'
+				}
+			}[window.location.host];
+			if (!match) {
+				console.error('de website is nog niet gekend bij ons dus er zullen geen gebruikersstatistieken bijgehouden worden');
+			}
+			return match;
 		}
 		
 		function addStyleLink() {

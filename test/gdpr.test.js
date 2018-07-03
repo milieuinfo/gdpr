@@ -131,6 +131,26 @@ suite('gdpr', function() {
 		});
 	});
 	
+	test('via het GDPR script kan er gevraagd worden of een opt in actief is of niet', (done) => {
+		const dom = setup();
+		const window = dom.window;
+		const document = window.document;
+		dom.window.addEventListener('load', function() {
+			assert.isUndefined(window.GDPR.isOptInActive('matomo'));
+			const gdprModal = document.getElementById('gdpr_modal');
+			const gdprModalOptIn = document.getElementById('matomo_input');
+			gdprModalOptIn.onchange({
+				currentTarget: {
+					checked: true
+				}
+			});
+			const gdprModalBtn = gdprModal.getElementsByTagName('button')[0];
+			gdprModalBtn.click();
+			assert.isTrue(window.GDPR.isOptInActive('matomo'));
+			done();
+		});
+	});
+	
 	test('de gebruikersstatistieken kunnen later nog eens bevestigd worden zonder dat de opt in activatie opnieuw zal gebeuren', (done) => {
 		const dom = setup();
 		dom.reconfigure({ url: "https://zendantennes-ontwikkel.milieuinfo.be" });

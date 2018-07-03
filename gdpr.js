@@ -27,6 +27,10 @@
 			});
 		}
 		
+		this.isOptInActive = function(name) {
+			return optIns[name] ? optIns[name].value : false;
+		}
+		
 		if (Object.keys(optIns).length > 0) {
 			open();
 		}
@@ -161,7 +165,7 @@
 					"" +
 					"var currentUrl = location.href;" +
 					"window.addEventListener('hashchange', function() {" +
-						"if (optIns['matomo'].value) {" +
+						"if (GDPR.isOptInActive('matomo')) {" +
 							"_paq.push(['setReferrerUrl', currentUrl]);" +
 							"currentUrl = '' + window.location.hash.substr(1);" +
 							"_paq.push(['setCustomUrl', currentUrl]);" +

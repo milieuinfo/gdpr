@@ -40,11 +40,18 @@
 					'label': 'matomo',
 					'value': getCookie('matomo'),
 					'activate': function() {
-						document.head.appendChild(createMatomoScript());
+						if (!document.getElementById('gdpr_matomo_script')) {
+							document.head.appendChild(createMatomoScript());
+						}
 					},
 					'deactivate': function() {
-						deleteScript('gdpr_matomo_script');
-						deleteScript('gdpr_matomo_piwik_script');
+						if (document.getElementById('gdpr_matomo_script')) {
+							deleteScript('gdpr_matomo_script');
+						}
+						
+						if (document.getElementById('gdpr_matomo_piwik_script')) {
+							deleteScript('gdpr_matomo_piwik_script');
+						}
 					}
 				}
 			}

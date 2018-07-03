@@ -151,25 +151,6 @@ suite('gdpr', function() {
 		});
 	});
 	
-	test('de gebruikersstatistieken kunnen later uitgezet worden en er zullen dan geen gebruikersstatistieken meer verwerkt worden', (done) => {
-		const dom = setup();
-		dom.reconfigure({ url: "https://zendantennes-ontwikkel.milieuinfo.be" });
-		let window = dom.window;
-		const document = window.document;
-		const scriptStub = sandbox.stub();
-		scriptStub.returns(document.createElement('script'));
-		document.createTextNode = scriptStub;
-		document.cookie = 'vo_gdpr=true;2147483647;path=/';
-		document.cookie = 'vo_matomo=true;2147483647;path=/';
-		dom.window.addEventListener('load', function() {
-			assert.exists(document.getElementById('gdpr_matomo_script'));
-			window.GDPR.reset();
-			assert.notExists(document.getElementById('gdpr_matomo_script'));
-			assert.notExists(document.getElementById('gdpr_matomo_piwik_script'));
-			done();
-		});
-	});
-	
 	test('de GDPR modal zal standaard een opt in optie voorzien voor gebruikersstatistieken', (done) => {
 		const dom = setup();
 		dom.window.addEventListener('load', function() {

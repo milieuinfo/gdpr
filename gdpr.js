@@ -154,36 +154,36 @@
 			element.setAttribute('id', matomoScriptId);
 			if (matomo) {
 				var script = document.createTextNode("" +
-					"var _paq = [];" +
-					"_paq.push(['trackPageView']);" +
-					"_paq.push(['enableLinkTracking']);" +
-					"(function() {" +
-						"var u='" + matomo.url + "';" +
-						"_paq.push(['setTrackerUrl', u+'piwik.php']);" +
-						"_paq.push(['setSiteId', " + matomo.id + "]);" +
-						"var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];" +
-						"g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; g.id='" + matomoPiwikScriptId + "'; s.parentNode.insertBefore(g,s);" +
-					"})();" +
-					"" +
-					"var currentUrl = window.location.href;" +
-					"function hashChange() {" +
-						"if (GDPR.isOptInActive('matomo')) {" +
-							"_paq.push(['setReferrerUrl', currentUrl]);" +
-							"currentUrl = '' + window.location.hash.substr(1);" +
-							"_paq.push(['setCustomUrl', currentUrl]);" +
-							"_paq.push(['setDocumentTitle', 'My New Title']);" +
-							"_paq.push(['deleteCustomVariables', 'page']);" +
-							"_paq.push(['setGenerationTimeMs', 0]);" +
-							"_paq.push(['trackPageView']);" +
-							"var content = document.getElementById('content');" +
-							"_paq.push(['MediaAnalytics::scanForMedia', content]);" +
-							"_paq.push(['FormAnalytics::scanForForms', content]);" +
-							"_paq.push(['trackContentImpressionsWithinNode', content]);" +
-							"_paq.push(['enableLinkTracking']);" +
-						"}" +
-					"}" +
-					"window.removeEventListener('hashchange', hashChange);" +
-					"window.addEventListener('hashchange', hashChange);"
+					"if (!window._paq) {" +
+						"var _paq = window._paq || [];" +
+						"_paq.push(['trackPageView']);" +
+						"_paq.push(['enableLinkTracking']);" +
+						"(function() {" +
+							"var u='" + matomo.url + "';" +
+							"_paq.push(['setTrackerUrl', u+'piwik.php']);" +
+							"_paq.push(['setSiteId', " + matomo.id + "]);" +
+							"var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];" +
+							"g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; g.id='" + matomoPiwikScriptId + "'; s.parentNode.insertBefore(g,s);" +
+						"})();" +
+						"" +
+						"var currentUrl = window.location.href;" +
+						"window.addEventListener('hashchange', function() {" +
+							"if (GDPR.isOptInActive('matomo')) {" +
+								"_paq.push(['setReferrerUrl', currentUrl]);" +
+								"currentUrl = '' + window.location.hash.substr(1);" +
+								"_paq.push(['setCustomUrl', currentUrl]);" +
+								"_paq.push(['setDocumentTitle', document.title]);" +
+								"_paq.push(['deleteCustomVariables', 'page']);" +
+								"_paq.push(['setGenerationTimeMs', 0]);" +
+								"_paq.push(['trackPageView']);" +
+								"var content = document.getElementById('content');" +
+								"_paq.push(['MediaAnalytics::scanForMedia', content]);" +
+								"_paq.push(['FormAnalytics::scanForForms', content]);" +
+								"_paq.push(['trackContentImpressionsWithinNode', content]);" +
+								"_paq.push(['enableLinkTracking']);" +
+							"}" +
+						"});" +
+					"}"
 				);
 				element.appendChild(script);
 			}

@@ -255,7 +255,7 @@ suite('gdpr', function() {
 			sinon.assert.callCount(spy, 10);
 			window.eval(script.innerHTML);
 			window.dispatchEvent(event);
-			sinon.assert.callCount(spy, 10);
+			sinon.assert.callCount(spy, 20);
 			done();
 		});
 	});

@@ -212,4 +212,51 @@ suite('gdpr', function() {
 			done();
 		});
 	});
+	
+	test('de gebruikersstatistieken kunnen later uitgezet worden en er zullen dan geen gebruikersstatistieken meer verwerkt worden, ook niet wanneer de hash wijzigt', (done) => {
+		const dom = setup();
+		dom.reconfigure({ url: "https://zendantennes-ontwikkel.milieuinfo.be" });
+		const window = dom.window;
+		const document = window.document;
+		document.cookie = 'vo_gdpr=true;2147483647;path=/';
+		document.cookie = 'vo_matomo=true;2147483647;path=/';
+		dom.window.addEventListener('load', function() {
+			const script = document.getElementById('gdpr_matomo_script');
+			assert.exists(script);
+			window.eval(script.innerHTML);
+			let spy = sandbox.spy(window._paq, 'push');
+			const event = new window.Event('hashchange');
+			window.dispatchEvent(event);
+			assert(spy.called);
+			sandbox.restore();
+			window.GDPR.reset();
+			assert.notExists(document.getElementById('gdpr_matomo_script'));
+			assert.notExists(document.getElementById('gdpr_matomo_piwik_script'));
+			spy = sandbox.spy(window._paq, 'push');
+			window.dispatchEvent(event);
+			assert(spy.notCalled);
+			done();
+		});
+	});
+	
+	test('de gebruikersstatistieken kunnen opnieuw bevestigd worden en er zullen dan geen dubbele gebruikersstatistieken verwerkt worden', (done) => {
+		const dom = setup();
+		dom.reconfigure({ url: "https://zendantennes-ontwikkel.milieuinfo.be" });
+		const window = dom.window;
+		const document = window.document;
+		document.cookie = 'vo_gdpr=true;2147483647;path=/';
+		document.cookie = 'vo_matomo=true;2147483647;path=/';
+		dom.window.addEventListener('load', function() {
+			const script = document.getElementById('gdpr_matomo_script');
+			window.eval(script.innerHTML);
+			let spy = sandbox.spy(window._paq, 'push');
+			const event = new window.Event('hashchange');
+			window.dispatchEvent(event);
+			sinon.assert.callCount(spy, 10);
+			window.eval(script.innerHTML);
+			window.dispatchEvent(event);
+			sinon.assert.callCount(spy, 10);
+			done();
+		});
+	});
 });

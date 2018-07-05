@@ -152,7 +152,7 @@
 			element.setAttribute('id', 'gdpr_matomo_script');
 			if (matomo) {
 				var script = document.createTextNode("" +
-					"var _paq = _paq || [];" +
+					"var _paq = [];" +
 					"_paq.push(['trackPageView']);" +
 					"_paq.push(['enableLinkTracking']);" +
 					"(function() {" +
@@ -163,8 +163,8 @@
 						"g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; g.id='gdpr_matomo_piwik_script'; s.parentNode.insertBefore(g,s);" +
 					"})();" +
 					"" +
-					"var currentUrl = location.href;" +
-					"window.addEventListener('hashchange', function() {" +
+					"var currentUrl = window.location.href;" +
+					"function hashChange() {" +
 						"if (GDPR.isOptInActive('matomo')) {" +
 							"_paq.push(['setReferrerUrl', currentUrl]);" +
 							"currentUrl = '' + window.location.hash.substr(1);" +
@@ -179,7 +179,9 @@
 							"_paq.push(['trackContentImpressionsWithinNode', content]);" +
 							"_paq.push(['enableLinkTracking']);" +
 						"}" +
-					"});"
+					"}" +
+					"window.removeEventListener('hashchange', hashChange);" +
+					"window.addEventListener('hashchange', hashChange);"
 				);
 				element.appendChild(script);
 			}

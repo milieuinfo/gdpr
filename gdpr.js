@@ -10,6 +10,8 @@
 		var cookiePrefix = 'vo_';
 		var matomoScriptId = 'gdpr_matomo_script';
 		var matomoPiwikScriptId = 'gdpr_matomo_piwik_script';
+		var matomoOntwikkelUrl = '//stats-ontwikkel.milieuinfo.be/';
+		var matomoOefenUrl = '//stats-oefen.milieuinfo.be/'
 		
 		var modalElement;
 		var overlayElement;
@@ -199,11 +201,73 @@
 		
 		function getMatomoId() {
 			var match = {
+				'stats-ontwikkel.milieuinfo.be': {
+					'id': 1,
+					'url': matomoOntwikkelUrl
+				},
+				'ontwikkel.milieuinfo.be': {
+					'id': 2,
+					'url': matomoOntwikkelUrl
+				},
+				'ontwikkel.omgevingsloket.be/omv2Loket': {
+					'id': 3,
+					'url': matomoOntwikkelUrl
+				},
+				'bredero-ontwikkel.ruimteinfo.be': {
+					'id': 5,
+					'url': matomoOntwikkelUrl
+				}, 
+				'bredero-bupo-ontwikkel.ruimteinfo.be': {
+					'id': 6,
+					'url': matomoOntwikkelUrl
+				}, 
+				'bredero-xfr-ontwikkel.ruimteinfo.be': {
+					'id': 7,
+					'url': matomoOntwikkelUrl
+				},
+				'ontwikkel.ruimtemonitor.be': {
+					'id': 8,
+					'url': matomoOntwikkelUrl
+				}, 
+				'rupadviestoets-ontwikkel.milieuinfo.be': {
+					'id': 9,
+					'url': matomoOntwikkelUrl
+				}, 
 				'zendantennes-ontwikkel.milieuinfo.be': {
 					'id': 13,
-					'url': '//stats-ontwikkel.milieuinfo.be/'
-				}
+					'url': matomoOntwikkelUrl
+				},
+				'ontwikkel.omgevingsloket.be/omvLoket': {
+					'id': 14,
+					'url': matomoOntwikkelUrl
+				},
 			}[window.location.host];
+			
+			if (!match) {
+				match = {
+					'stats-oefen.milieuinfo.be': {
+						'id': 1,
+						'url': matomoOefenUrl
+					},
+					'oefen.ruimtemonitor.be': {
+						'id': 2,
+						'url': matomoOefenUrl
+					}, 
+					'oefen.omgevingsloket.be/omvLoket': {
+						'id': 3,
+						'url': matomoOefenUrl
+					}, 
+					'oefen.omgevingsloket.be/omv2Loket': {
+						'id': 4,
+						'url': matomoOefenUrl
+					}
+				}[window.location.host];
+			}
+			
+			if (!match) {
+				match = {}[window.location.host];
+			}
+			
 			if (!match) {
 				console.error('de website is nog niet gekend bij ons dus er zullen geen gebruikersstatistieken bijgehouden worden');
 			}

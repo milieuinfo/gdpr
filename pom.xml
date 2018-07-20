@@ -11,7 +11,7 @@
 	<artifactId>gdpr</artifactId>
 	<packaging>pom</packaging>
 
-	<name>zendantennes-gdpr</name>
+	<name>gdpr</name>
 
 	<prerequisites>
 		<maven>3.0.0</maven>

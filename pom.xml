@@ -43,7 +43,6 @@
 				<executions>
 					<execution>
 						<id>install node and npm</id>
-						<phase>generate-resources</phase>
 						<goals>
 							<goal>install-node-and-npm</goal>
 						</goals>

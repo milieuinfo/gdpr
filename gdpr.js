@@ -45,7 +45,7 @@
 			if (isOptIn('analytics', true)) {
 				optIns['matomo'] = {
 					'name': 'matomo',
-					'label': 'matomo',
+					'label': 'gebruikersstatistieken',
 					'value': getCookie('matomo'),
 					'activate': function() {
 						if (!document.getElementById(matomoScriptId)) {
@@ -104,15 +104,44 @@
 		
 		function createModalTitleElement() {
 			var element = document.createElement('h2');
-			element.textContent = 'GDPR titel';
+			element.textContent = 'Cookie-toestemming';
 			element.setAttribute('id', 'gdpr_modal_titel');
 			return element;
 		}
 		
 		function createModalTextElement() {
-			var element = document.createElement('p');
-			element.textContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+			var element = document.createElement('div');
 			element.setAttribute('id', 'gdpr_modal_tekst');
+			
+			var element1 = document.createElement('p');
+			element1.innerHTML = 'Het Departement Omgeving maakt op de websites waarvoor zij verantwoordelijk is gebruik van "cookies" en vergelijkbare internettechnieken. Cookies zijn kleine "tekstbestanden" die worden gebruikt om onze websites en apps beter te laten werken en jouw surfervaring te verbeteren. Zij kunnen worden opgeslagen in de context van de webbrowser(s) die je gebruikt bij het bezoeken van onze website(s).';
+			
+			var element2 = document.createElement('p');
+			element2.innerHTML = 'Er zijn verschillende soorten cookies, en deze hebben ook een verschillende doelstelling en geldigheidsduur. Een beperkt aantal cookies (essenti&#235;le cookies) zijn absoluut noodzakelijk, deze zijn altijd anoniem. Andere cookies dragen bij aan het gebruikscomfort, je hebt de keuze om deze al dan niet te aanvaarden.';
+			
+			var element3 = document.createElement('p');
+			element3.innerHTML = 'Op <a href="https://www.omgevingvlaanderen.be/privacy" target="_blank">https://www.omgevingvlaanderen.be/privacy</a> vind je meer informatie over de manier waarop het Departement Omgeving om gaat met uw privacy:';
+			
+			var element4 = document.createElement('ul');
+			var element4_1 = document.createElement('li');
+			element4_1.innerHTML = '- ons privacybeleid, vertaalt in de Privacyverklaring';
+			var element4_2 = document.createElement('li');
+			element4_2.innerHTML = '- algemene informatie over de nieuwe Privacywet';
+			var element4_3 = document.createElement('li');
+			element4_3.innerHTML = '- de contactgegevens van de functionaris voor gegevensbescherming of DPO';
+			element4.appendChild(element4_1);
+			element4.appendChild(element4_2);
+			element4.appendChild(element4_3);
+			
+			var element5 = document.createElement('p');
+			element5.innerHTML = 'De cookie-toestemming die je geeft is van toepassing op websites, subsites en apps van het Departement Omgeving. Welke dit zijn, vind je via de Privacyverklaring. Je kunt naderhand een eerdere toestemming intrekken of wijzigen.';
+			
+			element.appendChild(element1);
+			element.appendChild(element2);
+			element.appendChild(element3);
+			element.appendChild(element4);
+			element.appendChild(element5);
+			
 			return element;
 		}
 		
@@ -346,9 +375,13 @@
 					"z-index: 10001;" +
 				"}" +
 				"" +
-				"#gdpr_modal h2 {" +
-					"text-transform: capitalize;" +
+				"#gdpr_modal #gdpr_modal_titel {" +
 					"margin-top: 0px;" +
+				"}" +
+				"" +
+				"#gdpr_modal #gdpr_modal_tekst ul {" +
+					"list-style-type: none;" +
+					"padding-left: 20px;" +
 				"}" +
 				"" +
 				"#gdpr_modal button {" +
@@ -376,7 +409,6 @@
 					"opacity: 0;" +
 					"z-index: 1;" +
 				"}" +
-				"" +
 				"" +
 				"#gdpr_modal .checkbox-container input[type=checkbox] + span {" +
 					"position: relative;" +

@@ -62,35 +62,35 @@
 		</plugins>
 	</build>
 	
-    	<profiles>
-        	<profile>
-	          <id>bamboo</id>
-        	  <build>
-	            <pluginManagement>
-        	      <plugins>
-                	<plugin>
-	                  <groupId>com.github.eirslett</groupId>
-        	          <artifactId>frontend-maven-plugin</artifactId>
-                	  <configuration>
-				<environmentVariables>
-        	              		<https_proxy>http://forwardproxy-pr-build.lb.cumuli.be:3128/</https_proxy>
-                	      		<http_proxy>http://forwardproxy-pr-build.lb.cumuli.be:3128/</http_proxy>
-		                      <no_proxy>cumuli.be,mmis.be,localhost</no_proxy>
-				</environmentVariables>
-				<installDirectory>target</installDirectory>
-				<!--suppress MavenModelInspection (bamboo variable) -->
-				<nodeDownloadRoot>${acd.repository.node.dist.url}</nodeDownloadRoot>
-				<!--suppress MavenModelInspection (bamboo variable) -->
-				<npmDownloadRoot>${acd.repository.npm.dist.url}</npmDownloadRoot>
-				<nodeVersion>${node.version}</nodeVersion>
-				<npmVersion>${npm.version}</npmVersion>
-        	          </configuration>
-                	</plugin>
-	              </plugins>
-        	    </pluginManagement>
-	          </build>
-	        </profile>
-      </profiles>
+    <profiles>
+       	<profile>
+			<id>bamboo</id>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>com.github.eirslett</groupId>
+							<artifactId>frontend-maven-plugin</artifactId>
+							<configuration>
+								<environmentVariables>
+								<https_proxy>http://forwardproxy-pr-build.lb.cumuli.be:3128/</https_proxy>
+								<http_proxy>http://forwardproxy-pr-build.lb.cumuli.be:3128/</http_proxy>
+								<no_proxy>cumuli.be,mmis.be,localhost</no_proxy>
+								</environmentVariables>
+								<installDirectory>target</installDirectory>
+								<!--suppress MavenModelInspection (bamboo variable) -->
+								<nodeDownloadRoot>${acd.repository.node.dist.url}</nodeDownloadRoot>
+								<!--suppress MavenModelInspection (bamboo variable) -->
+								<npmDownloadRoot>${acd.repository.npm.dist.url}</npmDownloadRoot>
+								<nodeVersion>${node.version}</nodeVersion>
+								<npmVersion>${npm.version}</npmVersion>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+	</profiles>
 	
 	
 </project>

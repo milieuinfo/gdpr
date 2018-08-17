@@ -11,7 +11,7 @@
 		var matomoScriptId = 'gdpr_matomo_script';
 		var matomoPiwikScriptId = 'gdpr_matomo_piwik_script';
 		var matomoOntwikkelUrl = '//stats-ontwikkel.milieuinfo.be/';
-		var matomoOefenUrl = '//stats-oefen.milieuinfo.be/'
+		var matomoOefenUrl = '//stats-oefen.milieuinfo.be/';
 		
 		var modalElement;
 		var overlayElement;
@@ -20,48 +20,71 @@
 
 		this.open = function() {
 			open(true);
-		}
-		
-		this.reset = function() {
+		};
+
+		this.close = close;
+        this.addOptIn = addOptIn;
+
+        this.reset = function() {
 			deleteCookie('gdpr');
 			Object.values(optIns).forEach(function(optIn) {
 				deleteCookie(optIn.name);
 				delete optIn.value;
 				optIn.deactivate();
 			});
-		}
+		};
 		
 		this.isOptInActive = function(name) {
 			return optIns[name] ? optIns[name].value : false;
-		}
-		
-		if (Object.keys(optIns).length > 0) {
+		};
+
+		this.addActivationCallback = function(name, callback) {
+            optIns[name].activate = callback;
+		};
+
+        this.addDeactivationCallback = function(name, callback) {
+            optIns[name].deactivate = callback;
+        };
+
+		if (getScriptDataAttribute('auto-open', true) && Object.keys(optIns).length > 0) {
 			open();
 		}
+
+		function addOptIn(name, label, activationCallback, deactivationCallback) {
+            optIns[name] = {
+                'name': name,
+                'label': label,
+                'value': getCookie(name),
+                'activate': activationCallback,
+                'deactivate': deactivationCallback
+            }
+        }
 		
 		function initialize() {
 			addStyleLink();
-			
+
+            document.currentScript.getAttributeNames().forEach(function(attributeName) {
+                var matches = /^data-opt-in-([^-]+)(-(.+))?$/.exec(attributeName);
+                if(matches) {
+                    var name = matches[1];
+                    addOptIn(name, getOptInAttribute(name, 'label', name));
+                }
+            });
+
 			if (isOptIn('analytics', true)) {
-				optIns['matomo'] = {
-					'name': 'matomo',
-					'label': 'gebruikersstatistieken',
-					'value': getCookie('matomo'),
-					'activate': function() {
-						if (!document.getElementById(matomoScriptId)) {
-							document.head.appendChild(createMatomoScript());
-						}
-					},
-					'deactivate': function() {
-						if (document.getElementById(matomoScriptId)) {
-							deleteScript(matomoScriptId);
-						}
-						
-						if (document.getElementById(matomoPiwikScriptId)) {
-							deleteScript(matomoPiwikScriptId);
-						}
-					}
-				}
+				addOptIn('analytics', 'gebruikersstatistieken', function() {
+                    if (!document.getElementById(matomoScriptId)) {
+                        document.head.appendChild(createMatomoScript());
+                    }
+                }, function() {
+                    if (document.getElementById(matomoScriptId)) {
+                        deleteScript(matomoScriptId);
+                    }
+
+                    if (document.getElementById(matomoPiwikScriptId)) {
+                        deleteScript(matomoPiwikScriptId);
+                    }
+                });
 			}
 		}
 		
@@ -75,16 +98,44 @@
 		}
 		
 		function close() {
-			document.body.removeChild(modalElement);
-			document.body.removeChild(overlayElement);
+			if(modalElement) {
+				document.body.removeChild(modalElement);
+            }
+
+            if(overlayElement) {
+				document.body.removeChild(overlayElement);
+            }
+
 			processOptInCookies();
 			processOptIns();
 			setCookie('gdpr', true);
 		}
+
+        function getScriptAttribute(key) {
+            return document.currentScript.getAttribute(key);
+        }
 		
-		function isOptIn(name, fallback) {
-			return JSON.parse(document.currentScript.getAttribute(name) || fallback);
+		function getScriptDataAttribute(name, fallback) {
+            var value = getScriptAttribute("data-" + name);
+
+            if(value) {
+            	try {
+            		return JSON.parse(value);
+                } catch(e) {
+					return value;
+				}
+            } else {
+            	return fallback;
+			}
 		}
+
+        function isOptIn(name, fallback) {
+            return getScriptDataAttribute("opt-in-" + name, fallback);
+        }
+
+        function getOptInAttribute(name, attribute, fallback) {
+            return getScriptDataAttribute("opt-in-" + name + "-" + attribute, fallback);
+        }
 		
 		function createModalElement() {
 			var modal = document.createElement('div');
@@ -157,8 +208,9 @@
 		
 		function createOptieElement(data) {
 			var container = document.createElement('div');
-			container.classList.add('checkbox-container')
+			container.classList.add('checkbox-container');
 			var span = document.createElement('span');
+			span.setAttribute('id', data.name + '_label');
 			span.textContent = data ? data.label : '';
 			var checkbox = document.createElement('input');
 			checkbox.setAttribute('id', data.name + '_input');
@@ -199,7 +251,7 @@
 						"" +
 						"var currentUrl = window.location.href;" +
 						"window.addEventListener('hashchange', function() {" +
-							"if (GDPR.isOptInActive('matomo')) {" +
+							"if (GDPR.isOptInActive('analytics')) {" +
 								"_paq.push(['setReferrerUrl', currentUrl]);" +
 								"currentUrl = '' + window.location.hash.substr(1);" +
 								"_paq.push(['setCustomUrl', currentUrl]);" +
@@ -345,7 +397,15 @@
 		
 		function processOptIns() {
 			Object.values(optIns).forEach(function(optIn) {
-				optIn.value ? optIn.activate() : optIn.deactivate();
+				if(optIn.value) {
+					if(optIn.activate) {
+						optIn.activate();
+					}
+				} else {
+                    if(optIn.deactivate) {
+                        optIn.deactivate();
+                    }
+                }
 			});
 		}
 		

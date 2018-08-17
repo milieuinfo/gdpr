@@ -16,6 +16,28 @@ function setup() {
 	});
 }
 
+function setupZonderAutoOpen() {
+    return new JSDOM(`
+		<head>
+			<script src='./gdpr.js' data-auto-open="false"></script>
+		</head>
+	`, {
+        runScripts: 'dangerously',
+        resources: 'usable'
+    });
+}
+
+function setupMetExtraOptIn() {
+    return new JSDOM(`
+		<head>
+			<script src='./gdpr.js' data-opt-in-analytics="false" data-opt-in-socialmedia-label="sociale media"></script>
+		</head>
+	`, {
+        runScripts: 'dangerously',
+        resources: 'usable'
+    });
+}
+
 const sandbox = sinon.createSandbox();
 
 teardown(() => {
@@ -43,6 +65,17 @@ suite('gdpr', function() {
 			done();
 		});
 	});
+
+    test('het laden van het gdpr script zal geen GDPR modal en overlay toevoegen aan de dom indien ervoor gekozen werd om auto-open af te zetten', (done) => {
+        const dom = setupZonderAutoOpen();
+        dom.window.addEventListener('load', function() {
+            const window = dom.window;
+            const document = window.document;
+            assert.notExists(document.getElementById('gdpr_modal'));
+            assert.notExists(document.getElementById('gdpr_overlay'));
+            done();
+        });
+    });
 	
 	test('de GDPR modal bevat een confirm knop waarmee de modal gesloten kan worden', (done) => {
 		const dom = setup();
@@ -94,10 +127,10 @@ suite('gdpr', function() {
 		stub.returns(document.createElement('script'));
 		document.createTextNode = stub;
 		document.cookie = 'vo_gdpr=true;2147483647;path=/';
-		document.cookie = 'vo_matomo=true;2147483647;path=/';
+		document.cookie = 'vo_analytics=true;2147483647;path=/';
 		dom.window.addEventListener('load', function() {
 			assert.exists(document.getElementById('gdpr_matomo_script'));
-			assert.include(document.cookie, 'vo_matomo');
+			assert.include(document.cookie, 'vo_analytics');
 			assert(stub.called);
 			done();
 		});
@@ -109,7 +142,7 @@ suite('gdpr', function() {
 		const window = dom.window;
 		const document = window.document;
 		document.cookie = 'vo_gdpr=true;2147483647;path=/';
-		document.cookie = 'vo_matomo=true;2147483647;path=/';
+		document.cookie = 'vo_analytics=true;2147483647;path=/';
 		const error = sandbox.spy(console, 'error');
 		dom.window.addEventListener('load', function() {
 			assert.exists(document.getElementById('gdpr_matomo_script'));
@@ -136,9 +169,9 @@ suite('gdpr', function() {
 		const window = dom.window;
 		const document = window.document;
 		dom.window.addEventListener('load', function() {
-			assert.isUndefined(window.GDPR.isOptInActive('matomo'));
+			assert.isUndefined(window.GDPR.isOptInActive('analytics'));
 			const gdprModal = document.getElementById('gdpr_modal');
-			const gdprModalOptIn = document.getElementById('matomo_input');
+			const gdprModalOptIn = document.getElementById('analytics_input');
 			gdprModalOptIn.onchange({
 				currentTarget: {
 					checked: true
@@ -146,7 +179,7 @@ suite('gdpr', function() {
 			});
 			const gdprModalBtn = gdprModal.getElementsByTagName('button')[0];
 			gdprModalBtn.click();
-			assert.isTrue(window.GDPR.isOptInActive('matomo'));
+			assert.isTrue(window.GDPR.isOptInActive('analytics'));
 			done();
 		});
 	});
@@ -160,7 +193,7 @@ suite('gdpr', function() {
 		scriptStub.returns(document.createElement('script'));
 		document.createTextNode = scriptStub;
 		document.cookie = 'vo_gdpr=true;2147483647;path=/';
-		document.cookie = 'vo_matomo=true;2147483647;path=/';
+		document.cookie = 'vo_analytics=true;2147483647;path=/';
 		dom.window.addEventListener('load', function() {
 			window.GDPR.open();
 			const gdprModal = document.getElementById('gdpr_modal');
@@ -176,7 +209,7 @@ suite('gdpr', function() {
 		dom.window.addEventListener('load', function() {
 			const window = dom.window;
 			const document = window.document;
-			const gdprModalOptIn = document.getElementById('matomo_input');
+			const gdprModalOptIn = document.getElementById('analytics_input');
 			assert.exists(gdprModalOptIn);
 			done();
 		});
@@ -191,7 +224,7 @@ suite('gdpr', function() {
 			const gdprModalBtn = gdprModal.getElementsByTagName('button')[0];
 			assert.isEmpty(document.cookie);
 			gdprModalBtn.click();
-			assert.include(document.cookie, 'vo_matomo');
+			assert.include(document.cookie, 'vo_analytics');
 			done();
 		});
 	});
@@ -206,7 +239,7 @@ suite('gdpr', function() {
 			assert.isEmpty(document.cookie);
 			gdprModalBtn.click();
 			assert.include(document.cookie, 'vo_gdpr');
-			assert.include(document.cookie, 'vo_matomo');
+			assert.include(document.cookie, 'vo_analytics');
 			window.GDPR.reset();
 			assert.isEmpty(document.cookie);
 			done();
@@ -219,7 +252,7 @@ suite('gdpr', function() {
 		const window = dom.window;
 		const document = window.document;
 		document.cookie = 'vo_gdpr=true;2147483647;path=/';
-		document.cookie = 'vo_matomo=true;2147483647;path=/';
+		document.cookie = 'vo_analytics=true;2147483647;path=/';
 		dom.window.addEventListener('load', function() {
 			const script = document.getElementById('gdpr_matomo_script');
 			assert.exists(script);
@@ -245,7 +278,7 @@ suite('gdpr', function() {
 		const window = dom.window;
 		const document = window.document;
 		document.cookie = 'vo_gdpr=true;2147483647;path=/';
-		document.cookie = 'vo_matomo=true;2147483647;path=/';
+		document.cookie = 'vo_analytics=true;2147483647;path=/';
 		dom.window.addEventListener('load', function() {
 			const script = document.getElementById('gdpr_matomo_script');
 			window.eval(script.innerHTML);
@@ -259,4 +292,65 @@ suite('gdpr', function() {
 			done();
 		});
 	});
+
+	test('een extra opt-in toevoegen via een attribuut op de script tag zal een extra keuze toevoegen aan de GDPR modal',  (done) => {
+        const dom = setupMetExtraOptIn();
+        const window = dom.window;
+        const document = window.document;
+        dom.window.addEventListener('load', function() {
+            const extraOptInInput = document.getElementById('socialmedia_input');
+            const extraOptInLabel = document.getElementById('socialmedia_label');
+            assert.exists(extraOptInInput);
+            assert.exists(extraOptInLabel);
+            assert.equal('sociale media', extraOptInLabel.textContent);
+            done();
+        });
+	});
+
+    test('een extra opt-in toevoegen via JavaScript zal een extra keuze toevoegen aan de GDPR modal',  (done) => {
+        const dom = setupZonderAutoOpen();
+        const window = dom.window;
+        const document = window.document;
+        dom.window.addEventListener('load', function() {
+        	window.GDPR.addOptIn('socialmedia', 'sociale media');
+            window.GDPR.open();
+            const extraOptInInput = document.getElementById('socialmedia_input');
+            const extraOptInLabel = document.getElementById('socialmedia_label');
+            assert.exists(extraOptInInput);
+            assert.exists(extraOptInLabel);
+            assert.equal('sociale media', extraOptInLabel.textContent);
+            done();
+        });
+    });
+
+    test('een activation callback toevoegen zal ervoor zorgen dat de callback opgeroepen wordt als er opt-in wordt',  (done) => {
+        const dom = setupMetExtraOptIn();
+        const window = dom.window;
+        const document = window.document;
+        dom.window.addEventListener('load', function() {
+            window.GDPR.addActivationCallback('socialmedia', done);
+            const gdprModal = document.getElementById('gdpr_modal');
+            const gdprModalBtn = gdprModal.getElementsByTagName('button')[0];
+            const socialMediaInput = document.getElementById('socialmedia_input');
+            socialMediaInput.click();
+            gdprModalBtn.click();
+        });
+    });
+
+    test('een deactivation callback toevoegen zal ervoor zorgen dat de callback opgeroepen wordt als er opt-out wordt',  (done) => {
+        const dom = setupMetExtraOptIn();
+        const window = dom.window;
+        const document = window.document;
+        document.cookie = 'vo_gdpr=true;2147483647;path=/';
+        document.cookie = 'vo_socialmedia=true;2147483647;path=/';
+        dom.window.addEventListener('load', function() {
+            window.GDPR.addDeactivationCallback('socialmedia', done);
+            window.GDPR.open();
+            const gdprModal = document.getElementById('gdpr_modal');
+            const gdprModalBtn = gdprModal.getElementsByTagName('button')[0];
+            const socialMediaInput = document.getElementById('socialmedia_input');
+            socialMediaInput.click();
+            gdprModalBtn.click();
+        });
+    });
 });

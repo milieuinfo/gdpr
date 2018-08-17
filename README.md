@@ -1,10 +1,10 @@
-# GDPR opt in modal
+# GDPR opt-in modal
 
-De GDPR opt in modal kan gebruikt worden in kader van de GDPR. Meer informatie en bijkomende tekst en uitleg zal later nog aangevuld worden door de GDPR verantwoordelijke.
+De GDPR opt-in modal kan gebruikt worden in kader van de GDPR. Meer informatie en bijkomende tekst en uitleg zal later nog aangevuld worden door de GDPR verantwoordelijke.
 
 ## Gebruik
 
-Het gebruik van de GDPR opt in modal is zeer eenvoudig. Je moet alleen maar een script tag toevoegen aan de head sectie van de HTML pagina. Dit script zal later nog toegevoegd worden aan een CDN zodat het niet nodig is om het bestand toe te voegen aan jouw project.
+Het gebruik van de GDPR opt-in modal is zeer eenvoudig. Je moet alleen maar een script tag toevoegen aan de head sectie van de HTML pagina. Dit script zal later nog toegevoegd worden aan een CDN zodat het niet nodig is om het bestand toe te voegen aan jouw project.
 
 ### Voorbeeld gebruik
 
@@ -16,6 +16,12 @@ Na het toevoegen van bovenstaand script zal er automatisch bij het laden van de 
 
 ![Alt text](https://github.com/milieuinfo/gdpr/blob/master/img/readme1.png?raw=true "GDPR modal voorbeeld")
 
+Om te voorkomen dat de opt-in modal automatisch aan de gebruiker wordt getoond bij het openen van de pagina, moet je het "data-auto-open" attribuut van de script tag op "false" zetten:
+
+```
+<script src="gdpr.js" data-auto-open="false"></script>
+```
+
 ### Gebruikersstatistieken
 
 Zoals je in het voorbeeld kan zien, zal er standaard gevraagd worden aan de gebruiker of hij de toestemming geeft voor gebruikersstatistieken. Indien hij hiermee toestemt, zal achterliggend en automatisch Matomo ingeschakeld worden en zullen er voor heel de applicatie gebruikersstatistieken bijgehouden worden.
@@ -23,28 +29,50 @@ Zoals je in het voorbeeld kan zien, zal er standaard gevraagd worden aan de gebr
 #### Opgelet domein
 Opgelet, voor het correct registreren van de gebruikersstatistieken moet het domein moet wel correct zijn: bijvoorbeeld domein.milieuinfo.be.
 
-Het is uiteraard ook mogelijk om de standaard opt in aan te passen:
+Het is uiteraard ook mogelijk om de standaard opt-in aan te passen:
 
 ```
-<script src="gdpr.js" analytics="false"></script>
+<script src="gdpr.js" data-opt-in-analytics="false"></script>
 ```
 
 ### Beschikbare functies
 
 De GDPR voorziet enkele publieke functies die vrij en altijd aangeroepen kunnen worden.
 
-#### GDPR opt in leegmaken
-De GDPR opt in modal maakt gebruik van cookies om de opt in waarden te bewaren. Het is mogelijk om de cookies te resetten.
+#### GDPR opt-in leegmaken
+De GDPR opt-in modal maakt gebruik van cookies om de opt-in waarden te bewaren. Het is mogelijk om de cookies te resetten.
 
 ```
 GDPR.reset();
 ```
 
-#### GDPR opt in modal openen
-De GDPR opt in modal wordt slechts één keer getoond aan de gebruikern. Indien je de gebruiker bijvoorbeeld de optie wilt geven om nadien de opt in waarden aan te passen, kan de GDPR modal manueel geopend worden.
+#### GDPR opt-in modal openen
+De GDPR opt-in modal wordt slechts één keer getoond aan de gebruiker. Indien je de gebruiker bijvoorbeeld de optie wilt geven om nadien de opt-in waarden aan te passen, kan de GDPR modal manueel geopend worden.
 
 ```
 GDPR.open();
+```
+
+#### Opt-in keuzes toevoegen
+Je kan ook extra opt-in keuzes toevoegen aan de modal.
+Dit kan met behulp van een attribuut op de script tag:
+
+```
+<script src="gdpr.js" data-opt-in-socialmedia-label="sociale media"></script>
+```
+
+Of, als je liever met JavaScript werkt:
+
+```
+GDPR.addOptIn('socialmedia', 'sociale media', () => console.log('activation'), () => console.log('deactivation'));
+```
+
+Zoals je ziet kan je via JavaScript ook callbacks toevoegen die opgeroepen worden bij het activeren van een opt-in keuze of het deactiveren ervan.
+Dit kan ook wanneer je een extra opt-in keuze hebt toevoegd via een attribuut op de script tag:
+
+```
+GDPR.addActivationCallback('socialmedia', () => console.log('activation'));
+GDPR.addDeactivationCallback('socialmedia', () => console.log('deactivation'));
 ```
 
 ## Stijl
@@ -66,7 +94,8 @@ Momenteel zijn volgende id's voorzien:
 
 ## Ontwikkelaars
 
-* **Tom Coemans** - *setup en eerste ontwikkling* - [Coemans](https://github.com/coemans)
+* **Tom Coemans** - [Coemans](https://github.com/coemans)
+* **Sander Kleykens** - [SanderKleykens](https://github.com/SanderKleykens)
 
 Zie ook de lijst van [ontwikkelaars](https://github.com/milieuinfo/gdpr/graphs/contributors) die mee geholpen hebben aan dit project.
 

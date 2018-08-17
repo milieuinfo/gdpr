@@ -50,29 +50,24 @@
 			open();
 		}
 
-		function addOptIn(name, label, activationCallback, deactivationCallback) {
-            optIns[name] = {
-                'name': name,
-                'label': label,
-                'value': getCookie(name),
-                'activate': activationCallback,
-                'deactivate': deactivationCallback
+		function addOptIn(name, label, description, activationCallback, deactivationCallback) {
+            if (!optIns[name]) {
+            	optIns[name] = {
+        			'name': name,
+        			'label': label,
+        			'description': description,
+        			'value': getCookie(name),
+        			'activate': activationCallback,
+        			'deactivate': deactivationCallback
+            	}
             }
         }
 		
 		function initialize() {
 			addStyleLink();
 
-            document.currentScript.getAttributeNames().forEach(function(attributeName) {
-                var matches = /^data-opt-in-([^-]+)(-(.+))?$/.exec(attributeName);
-                if(matches) {
-                    var name = matches[1];
-                    addOptIn(name, getOptInLabelAttribute(name));
-                }
-            });
-
 			if (isOptIn('analytics', true)) {
-				addOptIn('analytics', 'gebruikersstatistieken', function() {
+				addOptIn('analytics', 'gebruikersstatistieken', 'Dit soort cookies helpt ons te begrijpen hoe bezoekers de website gebruiken, door anoniem gegevens te verzamelen en te rapporteren.', function() {
                     if (!document.getElementById(matomoScriptId)) {
                         document.head.appendChild(createMatomoScript());
                     }
@@ -86,6 +81,14 @@
                     }
                 });
 			}
+			
+			document.currentScript.getAttributeNames().forEach(function(attributeName) {
+                var matches = /^data-opt-in-([^-]+)(-(.+))?$/.exec(attributeName);
+                if (matches) {
+                    var name = matches[1];
+                    addOptIn(name, getOptInLabelAttribute(name), getOptInDescriptionAttribute(name));
+                }
+            });
 		}
 		
 		function open(forced) {
@@ -139,6 +142,10 @@
 
         function getOptInLabelAttribute(name) {
             return getOptInAttribute(name, "label", name);
+        }
+
+        function getOptInDescriptionAttribute(name) {
+            return getOptInAttribute(name, "description");
         }
 		
 		function createModalElement() {
@@ -213,9 +220,12 @@
 		function createOptieElement(data) {
 			var container = document.createElement('div');
 			container.classList.add('checkbox-container');
-			var span = document.createElement('span');
-			span.setAttribute('id', data.name + '_label');
-			span.textContent = data ? data.label : '';
+			var label = document.createElement('span');
+			label.setAttribute('id', data.name + '_label');
+			label.textContent = data ? data.label : '';
+			var description = document.createElement('div');
+			description.setAttribute('id', data.name + '_description');
+			description.textContent = data ? data.description : '';
 			var checkbox = document.createElement('input');
 			checkbox.setAttribute('id', data.name + '_input');
 			checkbox.type = 'checkbox';
@@ -225,7 +235,8 @@
 				optIns[data.name].value = checked;
 			};
 			container.appendChild(checkbox);
-			container.appendChild(span);
+			container.appendChild(label);
+			container.appendChild(description);
 			return container;
 		}
 		
@@ -467,6 +478,10 @@
 					"position: relative;" +
 				"}" +
 				"" +
+				"#gdpr_modal .checkbox-container:not(:first-child) {" +
+					"margin-top: 10px;" +
+				"}" +
+				"" +
 				"#gdpr_modal .checkbox-container input[type=checkbox] {" +
 					"position: absolute;" +
 					"margin: 4px;" +
@@ -478,6 +493,11 @@
 					"position: relative;" +
 					"padding-left: 30px;" +
 					"text-transform: capitalize;" +
+				"}" +
+				"" +
+				"#gdpr_modal .checkbox-container div {" +
+					"padding-left: 30px;" +
+					"font-size: 0.8em;" +
 				"}" +
 				"" +
 				"#gdpr_modal .checkbox-container input[type=checkbox] + span:before {" +

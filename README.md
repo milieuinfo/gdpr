@@ -54,17 +54,16 @@ GDPR.open();
 ```
 
 #### Opt-in keuzes toevoegen
-Je kan ook extra opt-in keuzes toevoegen aan de modal.
-Dit kan met behulp van een attribuut op de script tag:
+Je kan ook extra opt-in keuzes toevoegen aan de modal met een label en beschrijving. Dit kan met behulp van een attribuut op de script tag:
 
 ```
-<script src="gdpr.js" data-opt-in-socialmedia-label="sociale media"></script>
+<script src="gdpr.js" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media"></script>
 ```
 
 Of, als je liever met JavaScript werkt:
 
 ```
-GDPR.addOptIn('socialmedia', 'sociale media', () => console.log('activation'), () => console.log('deactivation'));
+GDPR.addOptIn('socialmedia', 'sociale media', 'beschrijving sociale media', () => console.log('activation'), () => console.log('deactivation'));
 ```
 
 Zoals je ziet kan je via JavaScript ook callbacks toevoegen die opgeroepen worden bij het activeren van een opt-in keuze of het deactiveren ervan.

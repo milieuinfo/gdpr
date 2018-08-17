@@ -30,7 +30,7 @@ function setupZonderAutoOpen() {
 function setupMetExtraOptIn() {
     return new JSDOM(`
 		<head>
-			<script src='./gdpr.js' data-opt-in-analytics="false" data-opt-in-socialmedia-label="sociale media"></script>
+			<script src='./gdpr.js' data-opt-in-analytics="false" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media"></script>
 		</head>
 	`, {
         runScripts: 'dangerously',
@@ -300,9 +300,12 @@ suite('gdpr', function() {
         dom.window.addEventListener('load', function() {
             const extraOptInInput = document.getElementById('socialmedia_input');
             const extraOptInLabel = document.getElementById('socialmedia_label');
+            const extraOptInDescription = document.getElementById('socialmedia_description');
             assert.exists(extraOptInInput);
             assert.exists(extraOptInLabel);
+            assert.exists(extraOptInDescription);
             assert.equal('sociale media', extraOptInLabel.textContent);
+            assert.equal('beschrijving sociale media', extraOptInDescription.textContent);
             done();
         });
 	});
@@ -312,13 +315,18 @@ suite('gdpr', function() {
         const window = dom.window;
         const document = window.document;
         dom.window.addEventListener('load', function() {
-        	window.GDPR.addOptIn('socialmedia', 'sociale media');
+        	let label = 'sociale media';
+        	let description = 'beschrijving sociale media';
+        	window.GDPR.addOptIn('socialmedia', label, description);
             window.GDPR.open();
             const extraOptInInput = document.getElementById('socialmedia_input');
             const extraOptInLabel = document.getElementById('socialmedia_label');
+            const extraOptInDescription = document.getElementById('socialmedia_description');
             assert.exists(extraOptInInput);
             assert.exists(extraOptInLabel);
-            assert.equal('sociale media', extraOptInLabel.textContent);
+            assert.exists(extraOptInDescription);
+            assert.equal(label, extraOptInLabel.textContent);
+            assert.equal(description, extraOptInDescription.textContent);
             done();
         });
     });

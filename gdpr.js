@@ -67,7 +67,7 @@
         }
 		
 		function addFunctionalOptIn() {
-			addOptIn('functional', 'naadzakelijke cookies', 'Noodzakelijke cookies helpen een website bruikbaarder te maken, door basisfuncties als paginanavigatie en toegang tot beveiligde gedeelten van de website mogelijk te maken. Zonder deze cookies kan de website niet naar behoren werken.', true);
+			addOptIn('functional', 'noodzakelijke cookies', 'Noodzakelijke cookies helpen een website bruikbaarder te maken, door basisfuncties als paginanavigatie en toegang tot beveiligde gedeelten van de website mogelijk te maken. Zonder deze cookies kan de website niet naar behoren werken.', true);
 		}
 		
 		function addAnalyticsOptIn() {

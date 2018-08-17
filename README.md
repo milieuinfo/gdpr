@@ -22,9 +22,28 @@ Om te voorkomen dat de opt-in modal automatisch aan de gebruiker wordt getoond b
 <script src="gdpr.js" data-auto-open="false"></script>
 ```
 
+### Functionele cookies
+
+Standaard zal de gebruiker geïnformeerd worden dat er gebruik gemaakt wordt van functionele of noodzakelijke cookies. De gebruiker kan deze optie niet uitschakelen en zal dus verplicht akkoord moeten zijn dat dit soort cookies gebruikt worden. Indien dergelijke cookies niet van toepassing zijn, kan deze optie uitgeschakeld worden.
+
+```
+<script src="gdpr.js" data-opt-in-functional="false"></script>
+```
+
+#### Opgelet Matomo activatie
+Uiteraard moet Matomo ook geactiveerd worden door infra. Hiervoor kan best een Helpdesk ticket aangemaakt worden via help@omgevingvlaanderen.be
+
+#### Opgelet domein
+Opgelet, voor het correct registreren van de gebruikersstatistieken moet het domein moet wel correct zijn: bijvoorbeeld domein.milieuinfo.be.
+
+Het is uiteraard ook mogelijk om de standaard opt-in aan te passen:
+
 ### Gebruikersstatistieken
 
 Zoals je in het voorbeeld kan zien, zal er standaard gevraagd worden aan de gebruiker of hij de toestemming geeft voor gebruikersstatistieken. Indien hij hiermee toestemt, zal achterliggend en automatisch Matomo ingeschakeld worden en zullen er voor heel de applicatie gebruikersstatistieken bijgehouden worden.
+
+#### Opgelet Matomo activatie
+Uiteraard moet Matomo ook geactiveerd worden door infra. Hiervoor kan best een Helpdesk ticket aangemaakt worden via help@omgevingvlaanderen.be
 
 #### Opgelet domein
 Opgelet, voor het correct registreren van de gebruikersstatistieken moet het domein moet wel correct zijn: bijvoorbeeld domein.milieuinfo.be.

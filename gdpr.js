@@ -67,7 +67,7 @@
                 var matches = /^data-opt-in-([^-]+)(-(.+))?$/.exec(attributeName);
                 if(matches) {
                     var name = matches[1];
-                    addOptIn(name, getOptInAttribute(name, 'label', name));
+                    addOptIn(name, getOptInLabelAttribute(name));
                 }
             });
 
@@ -135,6 +135,10 @@
 
         function getOptInAttribute(name, attribute, fallback) {
             return getScriptDataAttribute("opt-in-" + name + "-" + attribute, fallback);
+        }
+
+        function getOptInLabelAttribute(name) {
+            return getOptInAttribute(name, "label", name);
         }
 		
 		function createModalElement() {

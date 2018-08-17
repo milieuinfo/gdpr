@@ -293,7 +293,7 @@ suite('gdpr', function() {
 		});
 	});
 
-	test('een extra opt-in toevoegen zal een extra keuze toevoegen aan de GDPR modal',  (done) => {
+	test('een extra opt-in toevoegen via een attribuut op de script tag zal een extra keuze toevoegen aan de GDPR modal',  (done) => {
         const dom = setupMetExtraOptIn();
         const window = dom.window;
         const document = window.document;
@@ -306,6 +306,22 @@ suite('gdpr', function() {
             done();
         });
 	});
+
+    test('een extra opt-in toevoegen via JavaScript zal een extra keuze toevoegen aan de GDPR modal',  (done) => {
+        const dom = setupZonderAutoOpen();
+        const window = dom.window;
+        const document = window.document;
+        dom.window.addEventListener('load', function() {
+        	window.GDPR.addOptIn('socialmedia', 'sociale media');
+            window.GDPR.open();
+            const extraOptInInput = document.getElementById('socialmedia_input');
+            const extraOptInLabel = document.getElementById('socialmedia_label');
+            assert.exists(extraOptInInput);
+            assert.exists(extraOptInLabel);
+            assert.equal('sociale media', extraOptInLabel.textContent);
+            done();
+        });
+    });
 
     test('een activation callback toevoegen zal ervoor zorgen dat de callback opgeroepen wordt als er opt-in wordt',  (done) => {
         const dom = setupMetExtraOptIn();

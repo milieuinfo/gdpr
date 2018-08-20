@@ -205,7 +205,7 @@
 			
 			var element4 = document.createElement('ul');
 			var element4_1 = document.createElement('li');
-			element4_1.innerHTML = '- ons privacybeleid, vertaalt in de Privacyverklaring';
+			element4_1.innerHTML = '- ons privacybeleid, vertaald in de Privacyverklaring';
 			var element4_2 = document.createElement('li');
 			element4_2.innerHTML = '- algemene informatie over de nieuwe Privacywet';
 			var element4_3 = document.createElement('li');

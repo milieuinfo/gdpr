@@ -30,14 +30,6 @@ Standaard zal de gebruiker geïnformeerd worden dat er gebruik gemaakt wordt van
 <script src="gdpr.js" data-opt-in-functional="false"></script>
 ```
 
-#### Opgelet Matomo activatie
-Uiteraard moet Matomo ook geactiveerd worden door infra. Hiervoor kan best een Helpdesk ticket aangemaakt worden via help@omgevingvlaanderen.be
-
-#### Opgelet domein
-Opgelet, voor het correct registreren van de gebruikersstatistieken moet het domein moet wel correct zijn: bijvoorbeeld domein.milieuinfo.be.
-
-Het is uiteraard ook mogelijk om de standaard opt-in aan te passen:
-
 ### Gebruikersstatistieken
 
 Zoals je in het voorbeeld kan zien, zal er standaard gevraagd worden aan de gebruiker of hij de toestemming geeft voor gebruikersstatistieken. Indien hij hiermee toestemt, zal achterliggend en automatisch Matomo ingeschakeld worden en zullen er voor heel de applicatie gebruikersstatistieken bijgehouden worden.

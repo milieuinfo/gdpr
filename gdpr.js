@@ -67,11 +67,11 @@
         }
 		
 		function addFunctionalOptIn() {
-			addOptIn('functional', 'noodzakelijke cookies', 'Noodzakelijke cookies helpen een website bruikbaarder te maken, door basisfuncties als paginanavigatie en toegang tot beveiligde gedeelten van de website mogelijk te maken. Zonder deze cookies kan de website niet naar behoren werken.', true);
+			addOptIn('functional', 'Noodzakelijke cookies toestaan (verplicht)', 'Noodzakelijke cookies helpen een website bruikbaarder te maken, door basisfuncties als paginanavigatie en toegang tot beveiligde gedeelten van de website mogelijk te maken. Zonder deze cookies kan de website niet naar behoren werken.', true);
 		}
 		
 		function addAnalyticsOptIn() {
-			addOptIn('analytics', 'gebruikersstatistieken', 'Dit soort cookies helpt ons te begrijpen hoe bezoekers de website gebruiken, door anoniem gegevens te verzamelen en te rapporteren.', false, function() {
+			addOptIn('analytics', 'Anonieme gebruikersstatistieken toestaan', 'Dit soort cookies helpt ons te begrijpen hoe bezoekers de website gebruiken, door anoniem gegevens te verzamelen en te rapporteren.', false, function() {
                 if (!document.getElementById(matomoScriptId)) {
                     document.head.appendChild(createMatomoScript());
                 }
@@ -221,7 +221,7 @@
 			element2.innerHTML = 'Er zijn verschillende soorten cookies, en deze hebben ook een verschillende doelstelling en geldigheidsduur. Een beperkt aantal cookies (essenti&#235;le cookies) zijn absoluut noodzakelijk, deze zijn altijd anoniem. Andere cookies dragen bij aan het gebruikscomfort, je hebt de keuze om deze al dan niet te aanvaarden.';
 			
 			var element3 = document.createElement('p');
-			element3.innerHTML = 'Op <a href="https://www.omgevingvlaanderen.be/privacy" target="_blank">https://www.omgevingvlaanderen.be/privacy</a> vind je meer informatie over de manier waarop het Departement Omgeving om gaat met uw privacy:';
+			element3.innerHTML = 'Op <a href="https://www.omgevingvlaanderen.be/privacy" target="_blank">https://www.omgevingvlaanderen.be/privacy</a> vind je meer informatie over de manier waarop het Departement Omgeving omgaat met uw privacy:';
 			
 			var element4 = document.createElement('ul');
 			var element4_1 = document.createElement('li');
@@ -235,7 +235,7 @@
 			element4.appendChild(element4_3);
 			
 			var element5 = document.createElement('p');
-			element5.innerHTML = 'De cookie-toestemming die je geeft is van toepassing op websites, subsites en apps van het Departement Omgeving. Welke dit zijn, vind je via de Privacyverklaring. Je kunt naderhand een eerdere toestemming intrekken of wijzigen.';
+			element5.innerHTML = 'De cookie-toestemming die je geeft is van toepassing op meerdere websites, subsites en apps van het Departement Omgeving. Welke dit zijn, vind je via de Privacyverklaring. Je kunt naderhand een eerdere toestemming intrekken of wijzigen.';
 			
 			element.appendChild(element1);
 			element.appendChild(element2);
@@ -248,7 +248,7 @@
 		
 		function createModalConfirmButton() {
 			var element = document.createElement('button');
-			element.textContent = 'bewaar';
+			element.textContent = 'Bewaar instellingen';
 			element.setAttribute('id', 'gdpr_modal_confirm_btn');
 			element.onclick = function() {
 				close();
@@ -536,7 +536,6 @@
 				"#gdpr_modal .checkbox-container input[type=checkbox] + span {" +
 					"position: relative;" +
 					"padding-left: 30px;" +
-					"text-transform: capitalize;" +
 				"}" +
 				"" +
 				"#gdpr_modal .checkbox-container div {" +

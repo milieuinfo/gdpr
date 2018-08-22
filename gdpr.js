@@ -48,7 +48,7 @@
             optIns[name].deactivate = callback;
         };
 
-		if (getScriptDataAttribute('auto-open', true) && Object.keys(optIns).length > 0) {
+		if (getScriptBooleanAttribute('auto-open', false) && Object.keys(optIns).length > 0) {
 			open();
 		}
 

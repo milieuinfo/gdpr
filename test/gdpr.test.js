@@ -8,7 +8,7 @@ const { JSDOM } = jsdom;
 function setup() {
 	return new JSDOM(`
 		<head>
-			<script src='./gdpr.js'></script>
+			<script src='./gdpr.js' data-auto-open></script>
 		</head>
 	`, {
 		runScripts: 'dangerously',
@@ -17,6 +17,17 @@ function setup() {
 }
 
 function setupZonderAutoOpen() {
+    return new JSDOM(`
+		<head>
+			<script src='./gdpr.js'></script>
+		</head>
+	`, {
+        runScripts: 'dangerously',
+        resources: 'usable'
+    });
+}
+
+function setupZonderAutoOpenExpliciet() {
     return new JSDOM(`
 		<head>
 			<script src='./gdpr.js' data-auto-open="false"></script>
@@ -30,7 +41,7 @@ function setupZonderAutoOpen() {
 function setupMetExtraOptIn(required) {
     return new JSDOM(`
 		<head>
-			<script src='./gdpr.js' data-opt-in-analytics="false" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-required="${required}"></script>
+			<script src='./gdpr.js' data-auto-open data-opt-in-analytics="false" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-required="${required}"></script>
 		</head>
 	`, {
         runScripts: 'dangerously',
@@ -67,14 +78,22 @@ suite('gdpr', function() {
 		});
 	});
 
-    test('het laden van het gdpr script zal geen GDPR modal en overlay toevoegen aan de dom indien ervoor gekozen werd om auto-open af te zetten', (done) => {
-        const dom = setupZonderAutoOpen();
+    test('het laden van het gdpr script zal standaard geen GDPR modal en overlay toevoegen aan de dom of indien er gekozen werd om de auto-open af te zetten', (done) => {
+    	let dom = setupZonderAutoOpen();
         dom.window.addEventListener('load', function() {
             const window = dom.window;
             const document = window.document;
             assert.notExists(document.getElementById('gdpr_modal'));
             assert.notExists(document.getElementById('gdpr_overlay'));
-            done();
+            
+            dom = setupZonderAutoOpenExpliciet();
+            dom.window.addEventListener('load', function() {
+                const window = dom.window;
+                const document = window.document;
+                assert.notExists(document.getElementById('gdpr_modal'));
+                assert.notExists(document.getElementById('gdpr_overlay'));
+                done();
+            });
         });
     });
 	

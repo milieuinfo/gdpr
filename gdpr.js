@@ -146,6 +146,22 @@
             	return fallback;
 			}
 		}
+		
+		function getScriptBooleanAttribute(name, fallback) {
+            var value = getScriptAttribute("data-" + name);
+
+            if (value) {
+            	try {
+            		return JSON.parse(value);
+                } catch(e) {
+					return value;
+				}
+            } else if (value != undefined) {
+            	return !!new Boolean("");
+            } else {
+            	return fallback;
+			}
+		}
 
         function isOptIn(name, fallback) {
             return getScriptDataAttribute("opt-in-" + name, fallback);
@@ -153,6 +169,10 @@
 
         function getOptInAttribute(name, attribute, fallback) {
             return getScriptDataAttribute("opt-in-" + name + "-" + attribute, fallback);
+        }
+
+        function getOptInBooleanAttribute(name, attribute, fallback) {
+            return getScriptBooleanAttribute("opt-in-" + name + "-" + attribute, fallback);
         }
 
         function getOptInLabelAttribute(name) {
@@ -164,7 +184,7 @@
         }
 
         function getOptInRequiredAttribute(name) {
-            return getOptInAttribute(name, "required", true);
+            return getOptInBooleanAttribute(name, "required", false);
         }
 		
 		function createModalElement() {
@@ -228,7 +248,7 @@
 		
 		function createModalConfirmButton() {
 			var element = document.createElement('button');
-			element.textContent = 'Bewaar mijn keuze';
+			element.textContent = 'bewaar';
 			element.setAttribute('id', 'gdpr_modal_confirm_btn');
 			element.onclick = function() {
 				close();
@@ -484,7 +504,7 @@
 				"}" +
 				"" +
 				"#gdpr_modal button {" +
-					"text-transform: uppercase;" +
+					"text-transform: capitalize;" +
 					"background: #333;" +
 					"border: 1px solid #000;" +
 					"color: #FFF;" +

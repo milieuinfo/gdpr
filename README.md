@@ -71,14 +71,20 @@ Je kan ook extra opt-in keuzes toevoegen aan de modal met een label en beschrijv
 <script src="gdpr.js" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media"></script>
 ```
 
+Standaard is een opt-in niet verplicht, maar een opt-in kan ook verplicht zijn. In dat geval krijgt de gebruiker niet de mogelijkheid krijgt om de keuze te wijzigen. Dit kan bereikt worden door het required attribuut:
+
+```
+<script src="gdpr.js" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-required></script>
+<script src="gdpr.js" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-required="true"></script>
+```
+
 Of, als je liever met JavaScript werkt:
 
 ```
-GDPR.addOptIn('socialmedia', 'sociale media', 'beschrijving sociale media', () => console.log('activation'), () => console.log('deactivation'));
+GDPR.addOptIn('socialmedia', 'sociale media', 'beschrijving sociale media', () => { if (required) { return true; } else { return false; } }, () => console.log('activation'), () => console.log('deactivation'));
 ```
 
-Zoals je ziet kan je via JavaScript ook callbacks toevoegen die opgeroepen worden bij het activeren van een opt-in keuze of het deactiveren ervan.
-Dit kan ook wanneer je een extra opt-in keuze hebt toevoegd via een attribuut op de script tag:
+Zoals je ziet kan je via JavaScript ook callbacks toevoegen die opgeroepen worden bij het activeren van een opt-in keuze of het deactiveren ervan. Dit kan ook wanneer je een extra opt-in keuze hebt toevoegd via een attribuut op de script tag:
 
 ```
 GDPR.addActivationCallback('socialmedia', () => console.log('activation'));

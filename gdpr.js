@@ -67,11 +67,11 @@
         }
 		
 		function addFunctionalOptIn() {
-			addOptIn('functional', 'noodzakelijke cookies', 'Noodzakelijke cookies helpen een website bruikbaarder te maken, door basisfuncties als paginanavigatie en toegang tot beveiligde gedeelten van de website mogelijk te maken. Zonder deze cookies kan de website niet naar behoren werken.', true);
+			addOptIn('functional', 'Noodzakelijke cookies toestaan (verplicht)', 'Noodzakelijke cookies helpen een website bruikbaarder te maken, door basisfuncties als paginanavigatie en toegang tot beveiligde gedeelten van de website mogelijk te maken. Zonder deze cookies kan de website niet naar behoren werken.', true);
 		}
 		
 		function addAnalyticsOptIn() {
-			addOptIn('analytics', 'gebruikersstatistieken', 'Dit soort cookies helpt ons te begrijpen hoe bezoekers de website gebruiken, door anoniem gegevens te verzamelen en te rapporteren.', false, function() {
+			addOptIn('analytics', 'Anonieme gebruikersstatistieken toestaan', 'Dit soort cookies helpt ons te begrijpen hoe bezoekers de website gebruiken, door anoniem gegevens te verzamelen en te rapporteren.', false, function() {
                 if (!document.getElementById(matomoScriptId)) {
                     document.head.appendChild(createMatomoScript());
                 }
@@ -516,7 +516,6 @@
 				"#gdpr_modal .checkbox-container input[type=checkbox] + span {" +
 					"position: relative;" +
 					"padding-left: 30px;" +
-					"text-transform: capitalize;" +
 				"}" +
 				"" +
 				"#gdpr_modal .checkbox-container div {" +

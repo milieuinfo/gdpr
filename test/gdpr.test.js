@@ -170,17 +170,17 @@ suite('gdpr', function() {
 		const window = dom.window;
 		const document = window.document;
 		dom.window.addEventListener('load', function() {
-			assert.isUndefined(window.GDPR.isOptInActive('analytics'));
+			assert.isTrue(window.GDPR.isOptInActive('analytics'));
 			const gdprModal = document.getElementById('gdpr_modal');
 			const gdprModalOptIn = document.getElementById('analytics_input');
 			gdprModalOptIn.onchange({
 				currentTarget: {
-					checked: true
+					checked: false
 				}
 			});
 			const gdprModalBtn = gdprModal.getElementsByTagName('button')[0];
 			gdprModalBtn.click();
-			assert.isTrue(window.GDPR.isOptInActive('analytics'));
+			assert.isFalse(window.GDPR.isOptInActive('analytics'));
 			done();
 		});
 	});

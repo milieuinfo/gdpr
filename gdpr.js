@@ -71,7 +71,7 @@
 		}
 		
 		function addAnalyticsOptIn() {
-			addOptIn('analytics', 'Anonieme gebruikersstatistieken toestaan', 'Dit soort cookies helpt ons te begrijpen hoe bezoekers de website gebruiken, door anoniem gegevens te verzamelen en te rapporteren.', false, function() {
+			addOptIn('analytics', 'Anonieme gebruikersstatistieken toestaan', 'Dit soort cookies helpt ons te begrijpen hoe bezoekers de website gebruiken, door anoniem gegevens te verzamelen en te rapporteren.', true, function() {
                 if (!document.getElementById(matomoScriptId)) {
                     document.head.appendChild(createMatomoScript());
                 }

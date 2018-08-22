@@ -307,7 +307,7 @@ suite('gdpr', function() {
 		});
 	});
 
-	test('een extra opt-in toevoegen via een attribuut op de script tag zal een extra keuze toevoegen aan de GDPR modal',  (done) => {
+	test('een extra opt-in toevoegen via een attribuut op de script tag zal een extra keuze toevoegen aan de GDPR modal', (done) => {
         const dom = setupMetExtraOptIn(true);
         const window = dom.window;
         const document = window.document;
@@ -325,8 +325,38 @@ suite('gdpr', function() {
             done();
         });
 	});
+	
+	test('een extra-opt-in zal alleen required zijn wanneer het required attribuut bestaat zonder waarde of de waarde true heeft', (done) => {
+        let dom = setupMetExtraOptIn("");
+        let window = dom.window;
+        let document = window.document;
+        dom.window.addEventListener('load', function() {
+            const extraOptInInput = document.getElementById('socialmedia_input');
+            assert.isTrue(extraOptInInput.checked);
+            assert.isTrue(extraOptInInput.disabled);
+            
+            dom = setupMetExtraOptIn(true);
+            window = dom.window;
+            document = window.document;
+            dom.window.addEventListener('load', function() {
+                const extraOptInInput = document.getElementById('socialmedia_input');
+                assert.isTrue(extraOptInInput.checked);
+                assert.isTrue(extraOptInInput.disabled);
+                
+                dom = setupMetExtraOptIn(false);
+                window = dom.window;
+                document = window.document;
+                dom.window.addEventListener('load', function() {
+                    const extraOptInInput = document.getElementById('socialmedia_input');
+                    assert.isFalse(extraOptInInput.checked);
+                    assert.isFalse(extraOptInInput.disabled);
+                    done();
+                });
+            });
+        });
+	});
 
-    test('een extra opt-in toevoegen via JavaScript zal een extra keuze toevoegen aan de GDPR modal',  (done) => {
+    test('een extra opt-in toevoegen via JavaScript zal een extra keuze toevoegen aan de GDPR modal', (done) => {
         const dom = setupZonderAutoOpen();
         const window = dom.window;
         const document = window.document;
@@ -350,7 +380,7 @@ suite('gdpr', function() {
         });
     });
 
-    test('een activation callback toevoegen zal ervoor zorgen dat de callback opgeroepen wordt als de opt-in verplicht is',  (done) => {
+    test('een activation callback toevoegen zal ervoor zorgen dat de callback opgeroepen wordt als de opt-in verplicht is', (done) => {
         const dom = setupMetExtraOptIn(true);
         const window = dom.window;
         const document = window.document;
@@ -362,7 +392,7 @@ suite('gdpr', function() {
         });
     });
 
-    test('een activation callback toevoegen zal ervoor zorgen dat de callback opgeroepen wordt als er opt-in wordt',  (done) => {
+    test('een activation callback toevoegen zal ervoor zorgen dat de callback opgeroepen wordt als er opt-in wordt', (done) => {
         const dom = setupMetExtraOptIn(false);
         const window = dom.window;
         const document = window.document;
@@ -376,7 +406,7 @@ suite('gdpr', function() {
         });
     });
 
-    test('een deactivation callback toevoegen zal ervoor zorgen dat de callback opgeroepen wordt als er opt-out wordt',  (done) => {
+    test('een deactivation callback toevoegen zal ervoor zorgen dat de callback opgeroepen wordt als er opt-out wordt', (done) => {
         const dom = setupMetExtraOptIn(false);
         const window = dom.window;
         const document = window.document;

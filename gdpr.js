@@ -528,9 +528,10 @@
 				"" +
 				"#gdpr_modal .checkbox-container input[type=checkbox] {" +
 					"position: absolute;" +
-					"margin: 4px;" +
 					"opacity: 0;" +
 					"z-index: 1;" +
+					"width: 100%;" +
+					"height: 100%;" +
 				"}" +
 				"" +
 				"#gdpr_modal .checkbox-container input[type=checkbox] + span {" +

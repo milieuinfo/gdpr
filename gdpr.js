@@ -108,7 +108,7 @@
 		
 		function open(forced) {
 			if (!getCookie('gdpr') || forced) {
-				document.body.appendChild(modalElement || createModalElement());
+				document.body.appendChild(createModalElement());
 				document.body.appendChild(overlayElement || createOverlayElement());
 			} else {
 				processOptIns();

@@ -12,6 +12,17 @@ Het gebruik van de GDPR opt-in modal is zeer eenvoudig. Je moet alleen maar een 
 <script src="https://gdpr.milieuinfo.be/gdpr.js"></script>
 ```
 
+Als demo kan het script live op elke website toegevoegd worden door onderstaande code uit te voeren in de browser:
+
+```
+var head = document.getElementsByTagName('head')[0];
+var script = document.createElement('script');
+script.type = 'text/javascript';
+script.src = 'https://gdpr.milieuinfo.be/gdpr.js';
+head.appendChild(script);
+GDPR.open();
+```
+
 Na het toevoegen van bovenstaand script zal er automatisch bij het laden van de pagina een GDPR modal getoond worden:
 
 ![Alt text](https://github.com/milieuinfo/gdpr/blob/master/img/readme1.png?raw=true "GDPR modal voorbeeld")

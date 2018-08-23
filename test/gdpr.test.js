@@ -233,18 +233,18 @@ suite('gdpr', function() {
 		});
 	});
 	
-	test('de GDPR modal zal standaard een opt in optie voorzien voor noodzakelijke cookies die niet uitgeschakeld kan worden', (done) => {
-		const dom = setup();
-		dom.window.addEventListener('load', function() {
-			const window = dom.window;
-			const document = window.document;
-			const gdprModalOptIn = document.getElementById('functional_input');
-			assert.isTrue(gdprModalOptIn.checked);
-			assert.isTrue(gdprModalOptIn.disabled);
-			assert.exists(gdprModalOptIn);
-			done();
-		});
-	});
+//	test('de GDPR modal zal standaard een opt in optie voorzien voor noodzakelijke cookies die niet uitgeschakeld kan worden', (done) => {
+//		const dom = setup();
+//		dom.window.addEventListener('load', function() {
+//			const window = dom.window;
+//			const document = window.document;
+//			const gdprModalOptIn = document.getElementById('functional_input');
+//			assert.isTrue(gdprModalOptIn.checked);
+//			assert.isTrue(gdprModalOptIn.disabled);
+//			assert.exists(gdprModalOptIn);
+//			done();
+//		});
+//	});
 	
 	test('de GDPR modal zal standaard een opt in optie voorzien voor gebruikersstatistieken', (done) => {
 		const dom = setup();

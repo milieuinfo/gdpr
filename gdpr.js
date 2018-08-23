@@ -89,9 +89,9 @@
 		function initialize() {
 			addStyleLink();
 
-			if (isOptIn('functional', true)) {
-				addFunctionalOptIn();
-			}
+//			if (isOptIn('functional', true)) {
+//				addFunctionalOptIn();
+//			}
 			
 			if (isOptIn('analytics', true)) {
 				addAnalyticsOptIn();

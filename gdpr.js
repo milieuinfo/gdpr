@@ -7,7 +7,7 @@
 	
 	function GDPR() {
 		var optIns = {};
-		var cookiePrefix = 'vo_' + window.location.host + '_';
+		var cookiePrefix = 'vo_';
 		var matomoScriptId = 'gdpr_matomo_script';
 		var matomoPiwikScriptId = 'gdpr_matomo_piwik_script';
 		var matomoOntwikkelUrl = '//stats-ontwikkel.milieuinfo.be/';

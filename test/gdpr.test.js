@@ -6,13 +6,9 @@ const { assert } = chai;
 const { JSDOM } = jsdom;
 
 const host = 'zendantennes-ontwikkel.milieuinfo.be';
-const gdprCookie = 'vo_' + host + '_gdpr=true;2147483647;path=/';
-const analyticsCookie = 'vo_' + host + '_analytics=true;2147483647;path=/';
-const socialMediaCookie = 'vo_' + host + '_socialmedia=true;2147483647;path=/';
-
-function getCookie(host, type) {
-	return 'vo_' + host + '_' + type + '=true;2147483647;path=/';
-}
+const gdprCookie = 'vo_gdpr=true;2147483647;path=/';
+const analyticsCookie = 'vo_analytics=true;2147483647;path=/';
+const socialMediaCookie = 'vo_socialmedia=true;2147483647;path=/';
 
 function setup() {
 	return new JSDOM(`
@@ -131,7 +127,7 @@ suite('gdpr', function() {
 			const gdprModal = document.getElementById('gdpr_modal');
 			const gdprModalBtn = gdprModal.getElementsByTagName('button')[0];
 			gdprModalBtn.click();
-			assert.include(document.cookie, 'vo_' + host + '_gdpr=true');
+			assert.include(document.cookie, 'vo_gdpr=true');
 			done();
 		});
 	});
@@ -161,7 +157,7 @@ suite('gdpr', function() {
 		document.cookie = analyticsCookie;
 		dom.window.addEventListener('load', function() {
 			assert.exists(document.getElementById('gdpr_matomo_script'));
-			assert.include(document.cookie, 'vo_' + host + '_analytics');
+			assert.include(document.cookie, 'vo_analytics');
 			assert(stub.called);
 			done();
 		});
@@ -173,8 +169,8 @@ suite('gdpr', function() {
 		dom.reconfigure({ url: 'https://' + host });
 		const window = dom.window;
 		const document = window.document;
-		document.cookie = getCookie(host, 'gdpr');
-		document.cookie = getCookie(host, 'analytics');
+		document.cookie = gdprCookie;
+		document.cookie = analyticsCookie;
 		const error = sandbox.spy(console, 'error');
 		dom.window.addEventListener('load', function() {
 			assert.exists(document.getElementById('gdpr_matomo_script'));
@@ -270,7 +266,7 @@ suite('gdpr', function() {
 			const gdprModalBtn = gdprModal.getElementsByTagName('button')[0];
 			assert.isEmpty(document.cookie);
 			gdprModalBtn.click();
-			assert.include(document.cookie, 'vo_' + host + '_analytics');
+			assert.include(document.cookie, 'vo_analytics');
 			done();
 		});
 	});
@@ -285,8 +281,8 @@ suite('gdpr', function() {
 			const gdprModalBtn = gdprModal.getElementsByTagName('button')[0];
 			assert.isEmpty(document.cookie);
 			gdprModalBtn.click();
-			assert.include(document.cookie, 'vo_' + host + '_gdpr');
-			assert.include(document.cookie, 'vo_' + host + '_analytics');
+			assert.include(document.cookie, 'vo_gdpr');
+			assert.include(document.cookie, 'vo_analytics');
 			window.GDPR.reset();
 			assert.isEmpty(document.cookie);
 			done();

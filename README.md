@@ -71,7 +71,13 @@ Je kan ook extra opt-in keuzes toevoegen aan de modal met een label en beschrijv
 <script src="gdpr.js" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media"></script>
 ```
 
-Standaard is een opt-in niet verplicht, maar een opt-in kan ook verplicht zijn. In dat geval krijgt de gebruiker niet de mogelijkheid krijgt om de keuze te wijzigen. Dit kan bereikt worden door het required attribuut:
+Standaard is een opt-in uitgeschakeld, maar een opt-in kan initieel ook ingeschakeld worden. Dit kan bereikt worden door het verplicht attribuut:
+
+```
+<script src="gdpr.js" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-value="true"></script>
+```
+
+Standaard is een opt-in niet verplicht, maar een opt-in kan ook verplicht zijn. In dat geval krijgt de gebruiker niet de mogelijkheid krijgt om de keuze te wijzigen. Dit kan bereikt worden door het verplicht attribuut:
 
 ```
 <script src="gdpr.js" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-required></script>

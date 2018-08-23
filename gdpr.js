@@ -52,13 +52,13 @@
 			open();
 		}
 
-		function addOptIn(name, label, description, required, activationCallback, deactivationCallback) {
+		function addOptIn(name, label, description, value, required, activationCallback, deactivationCallback) {
             if (!optIns[name]) {
             	optIns[name] = {
         			'name': name,
         			'label': label,
         			'description': description,
-        			'value': getCookie(name),
+        			'value': value || getCookie(name),
         			'activate': activationCallback,
         			'deactivate': deactivationCallback,
         			'required': !!required
@@ -67,11 +67,11 @@
         }
 		
 		function addFunctionalOptIn() {
-			addOptIn('functional', 'Noodzakelijke cookies toestaan (verplicht)', 'Noodzakelijke cookies helpen een website bruikbaarder te maken, door basisfuncties als paginanavigatie en toegang tot beveiligde gedeelten van de website mogelijk te maken. Zonder deze cookies kan de website niet naar behoren werken.', true);
+			addOptIn('functional', 'Noodzakelijke cookies toestaan (verplicht)', 'Noodzakelijke cookies helpen een website bruikbaarder te maken, door basisfuncties als paginanavigatie en toegang tot beveiligde gedeelten van de website mogelijk te maken. Zonder deze cookies kan de website niet naar behoren werken.', false, true);
 		}
 		
 		function addAnalyticsOptIn() {
-			addOptIn('analytics', 'Anonieme gebruikersstatistieken toestaan', 'Dit soort cookies helpt ons te begrijpen hoe bezoekers de website gebruiken, door anoniem gegevens te verzamelen en te rapporteren.', true, function() {
+			addOptIn('analytics', 'Anonieme gebruikersstatistieken toestaan', 'Dit soort cookies helpt ons te begrijpen hoe bezoekers de website gebruiken, door anoniem gegevens te verzamelen en te rapporteren.', true, false, function() {
                 if (!document.getElementById(matomoScriptId)) {
                     document.head.appendChild(createMatomoScript());
                 }
@@ -101,7 +101,7 @@
                 var matches = /^data-opt-in-([^-]+)(-(.+))?$/.exec(attributeName);
                 if (matches) {
                     var name = matches[1];
-                    addOptIn(name, getOptInLabelAttribute(name), getOptInDescriptionAttribute(name), getOptInRequiredAttribute(name));
+                    addOptIn(name, getOptInLabelAttribute(name), getOptInDescriptionAttribute(name), getOptInValueAttribute(name), getOptInRequiredAttribute(name));
                 }
             });
 		}
@@ -181,6 +181,10 @@
 
         function getOptInDescriptionAttribute(name) {
             return getOptInAttribute(name, "description");
+        }
+
+        function getOptInValueAttribute(name) {
+            return getOptInBooleanAttribute(name, "value", false);
         }
 
         function getOptInRequiredAttribute(name) {

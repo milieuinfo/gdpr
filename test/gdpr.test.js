@@ -27,15 +27,16 @@ function setupZonderAutoOpen() {
     });
 }
 
-function setupMetExtraOptIn(required) {
+function setupMetExtraOptIn(value, required) {
     return new JSDOM(`
 		<head>
-			<script src='./gdpr.js' data-opt-in-analytics="false" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-required="${required}"></script>
+			<script src='./gdpr.js' data-opt-in-analytics="false" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-value="${value}" data-opt-in-socialmedia-required="${required}"></script>
 		</head>
 	`, {
         runScripts: 'dangerously',
         resources: 'usable',
-        required: required
+        required: required,
+        value: value
     });
 }
 
@@ -308,7 +309,7 @@ suite('gdpr', function() {
 	});
 
 	test('een extra opt-in toevoegen via een attribuut op de script tag zal een extra keuze toevoegen aan de GDPR modal', (done) => {
-        const dom = setupMetExtraOptIn(true);
+        const dom = setupMetExtraOptIn(false, true);
         const window = dom.window;
         const document = window.document;
         dom.window.addEventListener('load', function() {
@@ -326,8 +327,38 @@ suite('gdpr', function() {
         });
 	});
 	
+	test('een extra-opt-in zal standaard aangevinkt zijn wanneer het value attribuut bestaat zonder waarde of de waarde true heeft', (done) => {
+        let dom = setupMetExtraOptIn("", false);
+        let window = dom.window;
+        let document = window.document;
+        dom.window.addEventListener('load', function() {
+            const extraOptInInput = document.getElementById('socialmedia_input');
+            assert.isTrue(extraOptInInput.checked);
+            assert.isFalse(extraOptInInput.disabled);
+            
+            dom = setupMetExtraOptIn(true, false);
+            window = dom.window;
+            document = window.document;
+            dom.window.addEventListener('load', function() {
+                const extraOptInInput = document.getElementById('socialmedia_input');
+                assert.isTrue(extraOptInInput.checked);
+                assert.isFalse(extraOptInInput.disabled);
+                
+                dom = setupMetExtraOptIn(false, false);
+                window = dom.window;
+                document = window.document;
+                dom.window.addEventListener('load', function() {
+                    const extraOptInInput = document.getElementById('socialmedia_input');
+                    assert.isFalse(extraOptInInput.checked);
+                    assert.isFalse(extraOptInInput.disabled);
+                    done();
+                });
+            });
+        });
+	});
+	
 	test('een extra-opt-in zal alleen required zijn wanneer het required attribuut bestaat zonder waarde of de waarde true heeft', (done) => {
-        let dom = setupMetExtraOptIn("");
+        let dom = setupMetExtraOptIn("", "");
         let window = dom.window;
         let document = window.document;
         dom.window.addEventListener('load', function() {
@@ -335,7 +366,7 @@ suite('gdpr', function() {
             assert.isTrue(extraOptInInput.checked);
             assert.isTrue(extraOptInInput.disabled);
             
-            dom = setupMetExtraOptIn(true);
+            dom = setupMetExtraOptIn(false, true);
             window = dom.window;
             document = window.document;
             dom.window.addEventListener('load', function() {
@@ -343,7 +374,7 @@ suite('gdpr', function() {
                 assert.isTrue(extraOptInInput.checked);
                 assert.isTrue(extraOptInInput.disabled);
                 
-                dom = setupMetExtraOptIn(false);
+                dom = setupMetExtraOptIn(false, false);
                 window = dom.window;
                 document = window.document;
                 dom.window.addEventListener('load', function() {
@@ -364,7 +395,7 @@ suite('gdpr', function() {
         	let label = 'sociale media';
         	let description = 'beschrijving sociale media';
         	let required = true;
-        	window.GDPR.addOptIn('socialmedia', label, description, required);
+        	window.GDPR.addOptIn('socialmedia', label, description, false, required);
             window.GDPR.open();
             const extraOptInInput = document.getElementById('socialmedia_input');
             const extraOptInLabel = document.getElementById('socialmedia_label');
@@ -381,7 +412,7 @@ suite('gdpr', function() {
     });
 
     test('een activation callback toevoegen zal ervoor zorgen dat de callback opgeroepen wordt als de opt-in verplicht is', (done) => {
-        const dom = setupMetExtraOptIn(true);
+        const dom = setupMetExtraOptIn(false, true);
         const window = dom.window;
         const document = window.document;
         dom.window.addEventListener('load', function() {
@@ -393,7 +424,7 @@ suite('gdpr', function() {
     });
 
     test('een activation callback toevoegen zal ervoor zorgen dat de callback opgeroepen wordt als er opt-in wordt', (done) => {
-        const dom = setupMetExtraOptIn(false);
+        const dom = setupMetExtraOptIn(false, false);
         const window = dom.window;
         const document = window.document;
         dom.window.addEventListener('load', function() {
@@ -407,7 +438,7 @@ suite('gdpr', function() {
     });
 
     test('een deactivation callback toevoegen zal ervoor zorgen dat de callback opgeroepen wordt als er opt-out wordt', (done) => {
-        const dom = setupMetExtraOptIn(false);
+        const dom = setupMetExtraOptIn(false, false);
         const window = dom.window;
         const document = window.document;
         document.cookie = 'vo_gdpr=true;2147483647;path=/';

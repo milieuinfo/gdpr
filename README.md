@@ -16,10 +16,11 @@ Na het toevoegen van bovenstaand script zal er automatisch bij het laden van de 
 
 ![Alt text](https://github.com/milieuinfo/gdpr/blob/master/img/readme1.png?raw=true "GDPR modal voorbeeld")
 
-Om te voorkomen dat de opt-in modal automatisch aan de gebruiker wordt getoond bij het openen van de pagina, moet je het "data-auto-open" attribuut van de script tag op "false" zetten:
+Om in te schakelen dat de opt-in modal automatisch aan de gebruiker wordt getoond bij het openen van de pagina, moet je het "data-auto-open" attribuut van de script tag toevoegen of op "true" zetten:
 
 ```
-<script src="gdpr.js" data-auto-open="false"></script>
+<script src="gdpr.js" data-auto-open></script>
+<script src="gdpr.js" data-auto-open="true"></script>
 ```
 
 ### Functionele cookies

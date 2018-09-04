@@ -512,6 +512,7 @@
 					"background: #FFF;" +
 					"box-shadow: 0 0 0.1rem 0 rgba(0, 0, 0, 0.3);" +
 					"z-index: 10001;" +
+					"font-size: 1em;" +
 				"}" +
 				"" +
 				"#gdpr_modal #gdpr_modal_titel {" +
@@ -532,6 +533,7 @@
 					"height: 3.5rem;" +
 					"float: right;" +
 					"outline: none;" +
+					"font-size: 1em;" +
 				"}" +
 				"" +
 				"#gdpr_modal button:hover {" +

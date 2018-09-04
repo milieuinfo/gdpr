@@ -17,6 +17,7 @@ Als demo kan het script live op elke website toegevoegd worden door onderstaande
 ```
 var head = document.getElementsByTagName('head')[0];
 var script = document.createElement('script');
+script.id = 'gdpr_script';
 script.type = 'text/javascript';
 script.src = 'https://gdpr.milieuinfo.be/gdpr.js';
 head.appendChild(script);

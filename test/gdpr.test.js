@@ -13,7 +13,7 @@ const socialMediaCookie = 'vo_socialmedia=true;2147483647;path=/';
 function setup() {
 	return new JSDOM(`
 		<head>
-			<script src='./gdpr.js' data-auto-open></script>
+			<script id='gdpr_script' src='./gdpr.js' data-auto-open></script>
 		</head>
 	`, {
 		runScripts: 'dangerously',
@@ -24,7 +24,7 @@ function setup() {
 function setupZonderAutoOpen() {
     return new JSDOM(`
 		<head>
-			<script src='./gdpr.js'></script>
+			<script id='gdpr_script' src='./gdpr.js'></script>
 		</head>
 	`, {
         runScripts: 'dangerously',
@@ -35,7 +35,7 @@ function setupZonderAutoOpen() {
 function setupZonderAutoOpenExpliciet() {
     return new JSDOM(`
 		<head>
-			<script src='./gdpr.js' data-auto-open="false"></script>
+			<script id='gdpr_script' src='./gdpr.js' data-auto-open="false"></script>
 		</head>
 	`, {
         runScripts: 'dangerously',
@@ -46,7 +46,7 @@ function setupZonderAutoOpenExpliciet() {
 function setupMetExtraOptIn(value, required) {
     return new JSDOM(`
 		<head>
-			<script src='./gdpr.js' data-auto-open data-opt-in-analytics="false" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-value="${value}" data-opt-in-socialmedia-required="${required}"></script>
+			<script id='gdpr_script' src='./gdpr.js' data-auto-open data-opt-in-analytics="false" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-value="${value}" data-opt-in-socialmedia-required="${required}"></script>
 		</head>
 	`, {
         runScripts: 'dangerously',

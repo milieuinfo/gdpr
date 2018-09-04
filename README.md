@@ -9,7 +9,7 @@ Het gebruik van de GDPR opt-in modal is zeer eenvoudig. Je moet alleen maar een 
 ### Voorbeeld gebruik
 
 ```
-<script src="https://gdpr.milieuinfo.be/gdpr.js"></script>
+<script id="gdpr_script" src="https://gdpr.milieuinfo.be/gdpr.js"></script>
 ```
 
 Als demo kan het script live op elke website toegevoegd worden door onderstaande code uit te voeren in de browser:
@@ -30,8 +30,8 @@ Na het toevoegen van bovenstaand script zal er automatisch bij het laden van de 
 Om in te schakelen dat de opt-in modal automatisch aan de gebruiker wordt getoond bij het openen van de pagina, moet je het "data-auto-open" attribuut van de script tag toevoegen of op "true" zetten:
 
 ```
-<script src="https://gdpr.milieuinfo.be/gdpr.js" data-auto-open></script>
-<script src="https://gdpr.milieuinfo.be/gdpr.js" data-auto-open="true"></script>
+<script id="gdpr_script" src="https://gdpr.milieuinfo.be/gdpr.js" data-auto-open></script>
+<script id="gdpr_script" src="https://gdpr.milieuinfo.be/gdpr.js" data-auto-open="true"></script>
 ```
 
 ### Functionele cookies
@@ -39,7 +39,7 @@ Om in te schakelen dat de opt-in modal automatisch aan de gebruiker wordt getoon
 Standaard zal de gebruiker geïnformeerd worden dat er gebruik gemaakt wordt van functionele of noodzakelijke cookies. De gebruiker kan deze optie niet uitschakelen en zal dus verplicht akkoord moeten zijn dat dit soort cookies gebruikt worden. Indien dergelijke cookies niet van toepassing zijn, kan deze optie uitgeschakeld worden.
 
 ```
-<script src="https://gdpr.milieuinfo.be/gdpr.js" data-opt-in-functional="false"></script>
+<script id="gdpr_script" src="https://gdpr.milieuinfo.be/gdpr.js" data-opt-in-functional="false"></script>
 ```
 
 ### Gebruikersstatistieken
@@ -55,7 +55,7 @@ Opgelet, voor het correct registreren van de gebruikersstatistieken moet het dom
 Het is uiteraard ook mogelijk om de standaard opt-in aan te passen:
 
 ```
-<script src="https://gdpr.milieuinfo.be/gdpr.js" data-opt-in-analytics="false"></script>
+<script id="gdpr_script" src="https://gdpr.milieuinfo.be/gdpr.js" data-opt-in-analytics="false"></script>
 ```
 
 ### Beschikbare functies
@@ -80,20 +80,20 @@ GDPR.open();
 Je kan ook extra opt-in keuzes toevoegen aan de modal met een label en beschrijving. Dit kan met behulp van een attribuut op de script tag:
 
 ```
-<script src="https://gdpr.milieuinfo.be/gdpr.js" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media"></script>
+<script id="gdpr_script" src="https://gdpr.milieuinfo.be/gdpr.js" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media"></script>
 ```
 
 Standaard is een opt-in uitgeschakeld, maar een opt-in kan initieel ook ingeschakeld worden. Dit kan bereikt worden door het verplicht attribuut:
 
 ```
-<script src="https://gdpr.milieuinfo.be/gdpr.js" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-value="true"></script>
+<script id="gdpr_script" src="https://gdpr.milieuinfo.be/gdpr.js" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-value="true"></script>
 ```
 
 Standaard is een opt-in niet verplicht, maar een opt-in kan ook verplicht zijn. In dat geval krijgt de gebruiker niet de mogelijkheid krijgt om de keuze te wijzigen. Dit kan bereikt worden door het verplicht attribuut:
 
 ```
-<script src="https://gdpr.milieuinfo.be/gdpr.js" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-required></script>
-<script src="https://gdpr.milieuinfo.be/gdpr.js" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-required="true"></script>
+<script id="gdpr_script" src="https://gdpr.milieuinfo.be/gdpr.js" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-required></script>
+<script id="gdpr_script" src="https://gdpr.milieuinfo.be/gdpr.js" data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-required="true"></script>
 ```
 
 Of, als je liever met JavaScript werkt:

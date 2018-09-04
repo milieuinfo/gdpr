@@ -4,7 +4,7 @@ De GDPR opt-in modal kan gebruikt worden in kader van de GDPR. Meer informatie e
 
 ## Gebruik
 
-Het gebruik van de GDPR opt-in modal is zeer eenvoudig. Je moet alleen maar een script tag toevoegen aan de head sectie van de HTML pagina. Dit script zal later nog toegevoegd worden aan een CDN zodat het niet nodig is om het bestand toe te voegen aan jouw project.
+Het gebruik van de GDPR opt-in modal is zeer eenvoudig. Je moet alleen maar een script tag toevoegen aan de head sectie van de HTML pagina Opgelet, de script tag moet het id attribuut gdpr_script hebben. Dit script zal later nog toegevoegd worden aan een CDN zodat het niet nodig is om het bestand toe te voegen aan jouw project.
 
 ### Voorbeeld gebruik
 

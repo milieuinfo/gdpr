@@ -35,6 +35,13 @@ Om in te schakelen dat de opt-in modal automatisch aan de gebruiker wordt getoon
 <script id="gdpr_script" src="https://gdpr.milieuinfo.be/gdpr.js" data-auto-open="true"></script>
 ```
 
+#### Opgelet body element moet aanwezig zijn bij auto-open
+Bij het gebruik van auto-open moet het body element aanwezig zijn bij het inladen van het script. Wanneer dit niet het geval is, raden we aan om het script asynchroon te laden.
+
+```
+<script id="gdpr_script" src="https://gdpr.milieuinfo.be/gdpr.js" async></script>
+```
+
 ### Functionele cookies
 
 Standaard zal de gebruiker geïnformeerd worden dat er gebruik gemaakt wordt van functionele of noodzakelijke cookies. De gebruiker kan deze optie niet uitschakelen en zal dus verplicht akkoord moeten zijn dat dit soort cookies gebruikt worden. Indien dergelijke cookies niet van toepassing zijn, kan deze optie uitgeschakeld worden.

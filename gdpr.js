@@ -24,6 +24,7 @@
 		var matomoPiwikScriptId = 'gdpr_matomo_piwik_script';
 		var matomoOntwikkelUrl = '//stats-ontwikkel.milieuinfo.be/';
 		var matomoOefenUrl = '//stats-oefen.milieuinfo.be/';
+		var matomoProdUrl = '//stats.milieuinfo.be/';
 		
 		var modalElement;
 		var overlayElement;
@@ -369,7 +370,7 @@
 					'id': 2,
 					'url': matomoOntwikkelUrl
 				},
-				'ontwikkel.omgevingsloket.be/omv2Loket': {
+				'ontwikkel.omgevingsloket.be': {
 					'id': 3,
 					'url': matomoOntwikkelUrl
 				},
@@ -396,11 +397,7 @@
 				'zendantennes-ontwikkel.milieuinfo.be': {
 					'id': 13,
 					'url': matomoOntwikkelUrl
-				},
-				'ontwikkel.omgevingsloket.be/omvLoket': {
-					'id': 14,
-					'url': matomoOntwikkelUrl
-				},
+				}
 			}[window.location.host];
 			
 			if (!match) {
@@ -412,20 +409,21 @@
 					'oefen.ruimtemonitor.be': {
 						'id': 2,
 						'url': matomoOefenUrl
-					}, 
-					'oefen.omgevingsloket.be/omvLoket': {
-						'id': 3,
-						'url': matomoOefenUrl
-					}, 
-					'oefen.omgevingsloket.be/omv2Loket': {
+					},
+					'oefen.omgevingsloket.be': {
 						'id': 4,
 						'url': matomoOefenUrl
 					}
 				}[window.location.host];
 			}
-			
+
 			if (!match) {
-				match = {}[window.location.host];
+				match = {
+					'www.omgevingsloket.be': {
+						'id': 1,
+						'url': matomoProdUrl
+					}
+				}[window.location.host];
 			}
 			
 			if (!match) {

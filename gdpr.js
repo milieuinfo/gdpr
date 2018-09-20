@@ -14,6 +14,14 @@
 			};
 		}
 		
+		if (Object.values == undefined) {
+			Object.values = function(object) {
+				return Object.keys(object).map(function(key) {
+					return object[key];
+				});
+			}
+		}
+		
 		window.GDPR = new GDPR();
 	}
 	

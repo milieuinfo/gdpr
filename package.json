@@ -5,7 +5,7 @@
   "main": "gdpr.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --ui tdd test/**/*.test.js --reporter spec",
-    "prepublish": "npm run test"
+    "prepare": "npm run test"
   },
   "author": "Tom Coemans",
   "license": "ISC",

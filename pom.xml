@@ -24,43 +24,6 @@
 		<node.version>v8.10.0</node.version>
 		<npm.version>5.6.0</npm.version>
 	</properties>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<version>${frontend-maven-plugin.version}</version>
-				<configuration>
-					<installDirectory>target</installDirectory>
-					<!--suppress MavenModelInspection (bamboo variable) -->
-					<nodeDownloadRoot>${acd.repository.node.dist.url}</nodeDownloadRoot>
-					<!--suppress MavenModelInspection (bamboo variable) -->
-					<npmDownloadRoot>${acd.repository.npm.dist.url}</npmDownloadRoot>
-					<nodeVersion>${node.version}</nodeVersion>
-					<npmVersion>${npm.version}</npmVersion>
-				</configuration>
-				<executions>
-					<execution>
-						<id>install node and npm</id>
-						<goals>
-							<goal>install-node-and-npm</goal>
-						</goals>
-					</execution>
-
-					<execution>
-						<id>npm run build</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>run build</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
 	
     <profiles>
        	<profile>
@@ -85,12 +48,74 @@
 								<nodeVersion>${node.version}</nodeVersion>
 								<npmVersion>${npm.version}</npmVersion>
 							</configuration>
+							<executions>
+								<execution>
+									<id>install node and npm</id>
+									<goals>
+										<goal>install-node-and-npm</goal>
+									</goals>
+								</execution>
+			
+								<execution>
+									<id>npm publish</id>
+									<goals>
+										<goal>npm</goal>
+									</goals>
+									<configuration>
+										<arguments>run publish</arguments>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+		
+		<profile>
+			<id>bamboo-release</id>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>com.github.eirslett</groupId>
+							<artifactId>frontend-maven-plugin</artifactId>
+							<configuration>
+								<environmentVariables>
+								<https_proxy>http://forwardproxy-pr-build.lb.cumuli.be:3128/</https_proxy>
+								<http_proxy>http://forwardproxy-pr-build.lb.cumuli.be:3128/</http_proxy>
+								<no_proxy>cumuli.be,mmis.be,localhost</no_proxy>
+								</environmentVariables>
+								<installDirectory>target</installDirectory>
+								<!--suppress MavenModelInspection (bamboo variable) -->
+								<nodeDownloadRoot>${acd.repository.node.dist.url}</nodeDownloadRoot>
+								<!--suppress MavenModelInspection (bamboo variable) -->
+								<npmDownloadRoot>${acd.repository.npm.dist.url}</npmDownloadRoot>
+								<nodeVersion>${node.version}</nodeVersion>
+								<npmVersion>${npm.version}</npmVersion>
+							</configuration>
+							<executions>
+								<execution>
+									<id>install node and npm</id>
+									<goals>
+										<goal>install-node-and-npm</goal>
+									</goals>
+								</execution>
+			
+								<execution>
+									<id>npm publish</id>
+									<goals>
+										<goal>npm</goal>
+									</goals>
+									<configuration>
+										<arguments>run publish --tag next</arguments>
+									</configuration>
+								</execution>
+							</executions>
 						</plugin>
 					</plugins>
 				</pluginManagement>
 			</build>
 		</profile>
 	</profiles>
-	
-	
 </project>

@@ -4,8 +4,7 @@
   "description": "gdpr opt in",
   "main": "gdpr.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --ui tdd test/**/*.test.js --reporter spec",
-    "prepare": "npm run test"
+    "test": "./node_modules/mocha/bin/mocha --ui tdd test/**/*.test.js --reporter spec"
   },
   "author": "Tom Coemans",
   "license": "ISC",
@@ -15,7 +14,7 @@
     "mocha": "5.2.0",
     "sinon": "6.0.1"
   },
-  "publishConfig":{
-	"registry": "http://artifactory-pr.lb.cumuli.be:8081/artifactory/api/npm/acd-npm/"
+  "publishConfig": {
+    "registry": "http://artifactory-pr.lb.cumuli.be:8081/artifactory/api/npm/acd-npm/"
   }
 }

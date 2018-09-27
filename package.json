@@ -17,7 +17,6 @@
   "publishConfig": {
     "registry": "http://artifactory-pr.lb.cumuli.be:8081/artifactory/api/npm/acd-npm/"
   },
-  "private": true,
   "dependencies": {
     "gpg": "^0.6.0"
   }

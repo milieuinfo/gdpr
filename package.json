@@ -4,7 +4,8 @@
   "description": "gdpr opt in",
   "main": "gdpr.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --ui tdd test/**/*.test.js --reporter spec"
+    "test": "./node_modules/mocha/bin/mocha --ui tdd test/**/*.test.js --reporter spec",
+    "release": "np"
   },
   "author": "Tom Coemans",
   "license": "ISC",

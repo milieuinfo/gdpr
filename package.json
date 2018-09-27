@@ -1,6 +1,6 @@
 {
   "name": "gdpr",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "gdpr opt in",
   "main": "gdpr.js",
   "scripts": {
@@ -14,5 +14,8 @@
     "jsdom": "11.11.0",
     "mocha": "5.2.0",
     "sinon": "6.0.1"
+  },
+  "publishConfig":{
+	"registry": "http://artifactory-pr.lb.cumuli.be:8081/artifactory/api/npm/acd-npm/"
   }
 }

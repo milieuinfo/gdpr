@@ -1,6 +1,6 @@
 {
   "name": "gdpr",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "gdpr opt in",
   "main": "gdpr.js",
   "scripts": {

@@ -405,6 +405,10 @@
 				'zendantennes-ontwikkel.milieuinfo.be': {
 					'id': 13,
 					'url': matomoOntwikkelUrl
+				}, 
+				'vsm-ontwikkel.milieuinfo.be': {
+					'id': 16,
+					'url': matomoOntwikkelUrl
 				}
 			}[window.location.host];
 			
@@ -421,6 +425,10 @@
 					'oefen.omgevingsloket.be': {
 						'id': 4,
 						'url': matomoOefenUrl
+					},
+					'vsm-oefen.milieuinfo.be': {
+						'id': 8,
+						'url': matomoOefenUrl
 					}
 				}[window.location.host];
 			}
@@ -429,6 +437,10 @@
 				match = {
 					'www.omgevingsloket.be': {
 						'id': 1,
+						'url': matomoProdUrl
+					}, 
+					'vsm.milieuinfo.be': {
+						'id': 9,
 						'url': matomoProdUrl
 					}
 				}[window.location.host];

@@ -540,6 +540,7 @@
 					"float: right;" +
 					"outline: none;" +
 					"font-size: 1em;" +
+					"margin-top: 15px;" +
 				"}" +
 				"" +
 				"#gdpr_modal button:hover {" +

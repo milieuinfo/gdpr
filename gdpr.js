@@ -405,9 +405,13 @@
 				'zendantennes-ontwikkel.milieuinfo.be': {
 					'id': 13,
 					'url': matomoOntwikkelUrl
-				}, 
+				},
 				'vsm-ontwikkel.milieuinfo.be': {
 					'id': 16,
+					'url': matomoOntwikkelUrl
+				},
+				'rupadviestoets-ontwikkel.milieuinfo.be': {
+					'id': 9,
 					'url': matomoOntwikkelUrl
 				}
 			}[window.location.host];
@@ -429,6 +433,10 @@
 					'vsm-oefen.milieuinfo.be': {
 						'id': 8,
 						'url': matomoOefenUrl
+					},
+					'rupadviestoets-oefen.milieuinfo.be': {
+						'id': 9,
+						'url': matomoOefenUrl
 					}
 				}[window.location.host];
 			}
@@ -441,6 +449,10 @@
 					}, 
 					'vsm.milieuinfo.be': {
 						'id': 9,
+						'url': matomoProdUrl
+					},
+					'rupadviestoets.milieuinfo.be': {
+						'id': 11,
 						'url': matomoProdUrl
 					}
 				}[window.location.host];

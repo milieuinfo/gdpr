@@ -92,7 +92,7 @@
 		}
 		
 		function addAnalyticsOptIn() {
-			addOptIn('analytics', 'Anonieme gebruikersstatistieken toestaan', 'Dit soort cookies helpt ons te begrijpen hoe bezoekers de website gebruiken, door anoniem gegevens te verzamelen en te rapporteren.', true, false, function() {
+			addOptIn('analytics', 'Anonieme gebruikersstatistieken toestaan', 'Dit soort cookies helpt ons te begrijpen hoe bezoekers de website gebruiken, door anoniem gegevens te verzamelen en te rapporteren.', false, false, function() {
                 if (!document.getElementById(matomoScriptId)) {
                     document.head.appendChild(createMatomoScript());
                 }
@@ -114,9 +114,9 @@
 		function initialize() {
 			addStyleLink();
 
-//			if (isOptIn('functional', true)) {
-//				addFunctionalOptIn();
-//			}
+			if (isOptIn('functional', true)) {
+				addFunctionalOptIn();
+			}
 			
 			if (isOptIn('analytics', true)) {
 				addAnalyticsOptIn();

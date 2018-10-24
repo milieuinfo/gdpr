@@ -277,7 +277,7 @@
 		
 		function createModalConfirmButton() {
 			var element = document.createElement('button');
-			element.textContent = 'Bewaar instellingen';
+			element.textContent = 'Bewaar keuze';
 			element.setAttribute('id', 'gdpr_modal_confirm_btn');
 			element.onclick = function() {
 				close();

@@ -537,7 +537,7 @@
 					"max-height: 95vh;" +
 					"top: 30%;" +
 					"left: 50%;" +
-					"transform: translate(-50%, -50%);" +
+					"transform: translate(-50%, -30%);" +
 					"padding: 1.5rem;" +
 					"background: #FFF;" +
 					"box-shadow: 0 0 0.1rem 0 rgba(0, 0, 0, 0.3);" +

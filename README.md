@@ -20,7 +20,7 @@ Afhankelijk van het domein waarin de website zit, moet je een andere URL aanspre
 ### Demo
 Als demo kan het script live op elke website toegevoegd worden door onderstaande code uit te voeren in de browser:
 
-```
+```javascript
 var head = document.getElementsByTagName('head')[0];
 var script = document.createElement('script');
 script.id = 'gdpr_script';
@@ -79,14 +79,14 @@ De GDPR voorziet enkele publieke functies die vrij en altijd aangeroepen kunnen 
 #### GDPR opt-in leegmaken
 De GDPR opt-in modal maakt gebruik van cookies om de opt-in waarden te bewaren. Het is mogelijk om de cookies te resetten.
 
-```
+```javascript
 GDPR.reset();
 ```
 
 #### GDPR opt-in modal openen
 De GDPR opt-in modal wordt slechts één keer getoond aan de gebruiker. Indien je de gebruiker bijvoorbeeld de optie wilt geven om nadien de opt-in waarden aan te passen, kan de GDPR modal manueel geopend worden.
 
-```
+```javascript
 GDPR.open();
 ```
 
@@ -112,13 +112,13 @@ Standaard is een opt-in niet verplicht, maar een opt-in kan ook verplicht zijn. 
 
 Of, als je liever met JavaScript werkt:
 
-```
+```javascript
 GDPR.addOptIn('socialmedia', 'sociale media', 'beschrijving sociale media', () => { if (aangevinkt) { return true; } else { return false; } }, () => { if (required) { return true; } else { return false; } }, () => console.log('activation'), () => console.log('deactivation'));
 ```
 
 Zoals je ziet kan je via JavaScript ook callbacks toevoegen die opgeroepen worden bij het activeren van een opt-in keuze of het deactiveren ervan. Dit kan ook wanneer je een extra opt-in keuze hebt toevoegd via een attribuut op de script tag:
 
-```
+```javascript
 GDPR.addActivationCallback('socialmedia', () => console.log('activation'));
 GDPR.addDeactivationCallback('socialmedia', () => console.log('deactivation'));
 ```

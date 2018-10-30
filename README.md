@@ -150,5 +150,3 @@ Zie ook de lijst van [ontwikkelaars](https://github.com/milieuinfo/gdpr/graphs/c
 ## Contact
 
 Heb je suggesties, opmerkingen, tips of complimenten? Voel je dan vrij om ons te contacteren via help@omgevingvlaanderen.be.
-
----

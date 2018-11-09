@@ -495,7 +495,7 @@
         }
 
         function setCookie(name, value) {
-            document.cookie = cookiePrefix + name + '=' + value + ';2147483647;path=/;';
+            document.cookie = cookiePrefix + name + '=' + value + ';Max-Age=2147483647;path=/;';
         }
 
         function deleteCookie(name) {

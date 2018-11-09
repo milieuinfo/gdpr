@@ -6,9 +6,9 @@ const { assert } = chai;
 const { JSDOM } = jsdom;
 
 const host = 'zendantennes-ontwikkel.milieuinfo.be';
-const gdprCookie = 'vo_gdpr=true;2147483647;path=/';
-const analyticsCookie = 'vo_analytics=true;2147483647;path=/';
-const socialMediaCookie = 'vo_socialmedia=true;2147483647;path=/';
+const gdprCookie = 'vo_gdpr=true;Max-Age=2147483647;path=/';
+const analyticsCookie = 'vo_analytics=true;Max-Age=2147483647;path=/';
+const socialMediaCookie = 'vo_socialmedia=true;Max-Age=2147483647;path=/';
 
 function setup() {
 	return new JSDOM(`

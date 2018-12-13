@@ -443,10 +443,6 @@
 
             if (!match) {
                 match = {
-                    'www.omgevingsloket.be': {
-                        'id': 1,
-                        'url': matomoProdUrl
-                    },
                     'vsm.milieuinfo.be': {
                         'id': 9,
                         'url': matomoProdUrl

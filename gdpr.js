@@ -458,6 +458,10 @@
                     'zendantennes.milieuinfo.be': {
                         'id': 12,
                         'url': matomoProdUrl
+                    },
+                    'www.omgevingsloket.be': {
+                        'id': 14,
+                        'url': matomoProdUrl
                     }
                 }[window.location.host];
             }

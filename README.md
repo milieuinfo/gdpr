@@ -4,7 +4,7 @@ De GDPR opt-in modal kan gebruikt worden in kader van de GDPR. Meer informatie e
 
 ## Gebruik
 
-Het gebruik van de GDPR opt-in modal is zeer eenvoudig. Je moet alleen maar een script tag toevoegen aan de head sectie van de HTML pagina Opgelet, de script tag moet het id attribuut gdpr_script hebben. Dit script zal later nog toegevoegd worden aan een CDN zodat het niet nodig is om het bestand toe te voegen aan jouw project.
+Het gebruik van de GDPR opt-in modal is zeer eenvoudig. Je moet alleen maar een script tag toevoegen aan de head sectie van de HTML pagina Opgelet, de script tag moet het id attribuut gdpr_script hebben.
 
 ### Voorbeeld gebruik
 
@@ -129,7 +129,7 @@ De DOM zal uitgebreid worden met 2 elementen:
 * modal element
 * overlay element
 
-Standaard werd er een zeer eenvoudige stijl voorzien die gebaseerd is op de Vlaamse overheid huisstijl. Uiteraard is het mogelijk om deze stijl te overschrijven. Wij hebben enkele id's voorzien die hiervoor gebruikt kunnen worden. Het stijlen via HTML element tags is mogelijk, maar me garanderen niet dat deze in toekomstige versies ongewijzigd zullen blijven. Indien er nood is om specifieke elementen te stijlen, kan hiervoor altijd een id toegevoegd worden.
+Standaard werd er een zeer eenvoudige stijl voorzien die gebaseerd is op de Vlaamse overheid huisstijl. Uiteraard is het mogelijk om deze stijl te overschrijven. Wij hebben enkele id's voorzien die hiervoor gebruikt kunnen worden. Het stijlen via HTML element tags is mogelijk, maar we garanderen niet dat deze in toekomstige versies ongewijzigd zullen blijven. Indien er nood is om specifieke elementen te stijlen, kan hiervoor altijd een id toegevoegd worden.
 
 Momenteel zijn volgende id's voorzien:
 * ![#gdpr_overlay](https://placehold.it/15/fc0d1c/000000?text=+) `#gdpr_overlay`

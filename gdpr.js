@@ -547,6 +547,7 @@
                 "box-shadow: 0 0 0.1rem 0 rgba(0, 0, 0, 0.3);" +
                 "z-index: 10001;" +
                 "font-size: 1em;" +
+                "overflow: auto" +
                 "}" +
                 "" +
                 "#gdpr_modal #gdpr_modal_titel {" +

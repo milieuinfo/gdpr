@@ -58,7 +58,7 @@ Standaard zal de gebruiker geïnformeerd worden dat er gebruik gemaakt wordt van
 
 ### Gebruikersstatistieken
 
-Zoals je in het voorbeeld kan zien, zal er standaard gevraagd worden aan de gebruiker of hij de toestemming geeft voor gebruikersstatistieken. Indien hij hiermee toestemt, zal achterliggend en automatisch Matomo ingeschakeld worden en zullen er voor heel de applicatie gebruikersstatistieken bijgehouden worden.
+Het GDPR script standaard een integratie voorzien met Matomo om geanonimiseerde gebruikersstatistieken te verzamelen. Het is niet nodig om hiervoor toestemming te vragen aan de eindgebruiker, dit valt onder de noemer van functionele cookies.
 
 #### Opgelet Matomo activatie
 Uiteraard moet Matomo ook geactiveerd worden door infra. Hiervoor kan best een Helpdesk ticket aangemaakt worden via help@omgevingvlaanderen.be

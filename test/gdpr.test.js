@@ -20,6 +20,28 @@ function setup() {
 	});
 }
 
+function setupZonderFunctional() {
+    return new JSDOM(`
+		<head>
+			<script id='gdpr_script' src='./gdpr.src.js' data-opt-in-functional='false'></script>
+		</head>
+	`, {
+        runScripts: 'dangerously',
+        resources: 'usable'
+    });
+}
+
+function setupZonderAnalytics() {
+    return new JSDOM(`
+		<head>
+			<script id='gdpr_script' src='./gdpr.src.js' data-opt-in-analytics='false'></script>
+		</head>
+	`, {
+        runScripts: 'dangerously',
+        resources: 'usable'
+    });
+}
+
 function setupZonderAutoOpen() {
     return new JSDOM(`
 		<head>
@@ -208,7 +230,7 @@ suite('gdpr', function() {
 		});
 	});
 	
-	test('de gebruikersstatistieken kunnen later nog eens bevestigd worden zonder dat de opt in activatie opnieuw zal gebeuren', (done) => {
+	test('de gebruikersstatistieken kunnen via de noodzakelijke cookies opt in optie later nog eens bevestigd worden zonder dat de opt in activatie opnieuw zal gebeuren', (done) => {
 		const dom = setup();
 		dom.reconfigure({ url: 'https://' + host });
 		let window = dom.window;
@@ -240,13 +262,22 @@ suite('gdpr', function() {
 		});
 	});
 	
-	test('de GDPR modal zal geen opt in optie voorzien voor gebruikersstatistieken', (done) => {
-		const dom = setup();
+	test('indien er geen noodzakelijke cookies opt in voorzien wordt, zullen er geen gebruikersststatieken toegepast worden', (done) => {
+		const dom = setupZonderFunctional();
 		dom.window.addEventListener('load', function() {
 			const window = dom.window;
 			const document = window.document;
-			const gdprModalOptIn = document.getElementById('analytics_input');
-			assert.notExists(gdprModalOptIn);
+			assert.notExists(document.getElementById('gdpr_matomo_script'));
+			done();
+		});
+	});
+	
+	test('de gebruikersstatistieken kunnen standaard ook uitgeschakeld worden via de analytics opt in optie', (done) => {
+		const dom = setupZonderAnalytics();
+		dom.window.addEventListener('load', function() {
+			const window = dom.window;
+			const document = window.document;
+			assert.notExists(document.getElementById('gdpr_matomo_script'));
 			done();
 		});
 	});

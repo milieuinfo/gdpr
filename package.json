@@ -4,7 +4,9 @@
   "description": "gdpr opt in",
   "main": "gdpr.js",
   "scripts": {
-    "install": "uglifyjs --compress --mangle --output gdpr.js -- *.src.js",
+    "install": "npm run install:build && npm run install:commit",
+    "install:build": "uglifyjs --compress --mangle --output gdpr.js -- *.src.js",
+    "install:commit": "git add gdpr.js && git commit --amend --no-edit && git pull",
     "test": "./node_modules/mocha/bin/mocha --ui tdd test/**/*.test.js --reporter spec",
     "release": "np"
   },

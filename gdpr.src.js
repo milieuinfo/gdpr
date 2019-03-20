@@ -103,10 +103,13 @@
 
         function initialize() {
             addStyleLink();
-            addAnalytics();
 
             if (isOptIn('functional', true)) {
                 addFunctionalOptIn();
+                
+                if (isOptIn('analytics', true)) {
+                    addAnalytics();
+                }
             }
 
             getGDPRScript().getAttributeNames().forEach(function (attributeName) {

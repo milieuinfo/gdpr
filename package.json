@@ -4,6 +4,7 @@
   "description": "gdpr opt in",
   "main": "gdpr.js",
   "scripts": {
+    "install": "uglifyjs --compress --mangle --output gdpr.js -- *.src.js",
     "test": "./node_modules/mocha/bin/mocha --ui tdd test/**/*.test.js --reporter spec",
     "release": "np"
   },
@@ -14,7 +15,8 @@
     "jsdom": "11.11.0",
     "mocha": "5.2.0",
     "sinon": "6.0.1",
-    "np": "3.0.4"
+    "np": "3.0.4",
+    "uglify-js-es6": "2.8.9"
   },
   "publishConfig": {
     "registry": "http://artifactory-pr-build.lb.cumuli.be:8081/artifactory/api/npm/acd-npm/"

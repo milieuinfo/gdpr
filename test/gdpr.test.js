@@ -139,6 +139,27 @@ suite('gdpr', function() {
 			done();
 		});
 	});
+
+	test('de GDPR modal bevat een confirm knop waarmee de modal gesloten kan worden en de tekst is afhankelijk van het aantal opt in opties', (done) => {
+		let dom = setup();
+		dom.window.addEventListener('load', function() {
+			const window = dom.window;
+			const document = window.document;
+			const gdprModal = document.getElementById('gdpr_modal');
+			const gdprModalBtn = gdprModal.getElementsByTagName('button')[0];
+			assert.equal(gdprModalBtn.textContent, 'Ik begrijp het');
+
+			dom = setupMetExtraOptIn();
+			dom.window.addEventListener('load', function() {
+				const window = dom.window;
+				const document = window.document;
+				const gdprModal = document.getElementById('gdpr_modal');
+				const gdprModalBtn = gdprModal.getElementsByTagName('button')[0];
+				assert.equal(gdprModalBtn.textContent, 'Bewaar keuze');
+				done();
+			});
+		});
+	});
 	
 	test('bij het sluiten van de GDPR modal zal een cookie gezet worden zodat nadien de GDPR modal niet meer getoond zal worden', (done) => {
 		const dom = setup();

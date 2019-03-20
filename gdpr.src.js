@@ -91,6 +91,10 @@
             addOptIn('functional', 'Noodzakelijke cookies toestaan (verplicht)', 'Noodzakelijke cookies helpen een website bruikbaarder te maken, door basisfuncties als paginanavigatie en toegang tot beveiligde gedeelten van de website mogelijk te maken. Zonder deze cookies kan de website niet naar behoren werken.', false, true);
         }
 
+        function aantalOptIns() {
+            return Object.values(optIns).length;
+        }
+
         function addAnalytics() {
             if (!document.getElementById(matomoScriptId)) {
                 document.head.appendChild(createMatomoScript());
@@ -267,7 +271,11 @@
 
         function createModalConfirmButton() {
             var element = document.createElement('button');
-            element.textContent = 'Bewaar keuze';
+            if (aantalOptIns() > 1) {
+                element.textContent = 'Bewaar keuze';
+            } else {
+                element.textContent = 'Ik begrijp het';
+            }
             element.setAttribute('id', 'gdpr_modal_confirm_btn');
             element.onclick = function () {
                 close();
@@ -548,7 +556,6 @@
                 "}" +
                 "" +
                 "#gdpr_modal button {" +
-                "text-transform: capitalize;" +
                 "background: #333;" +
                 "border: 1px solid #000;" +
                 "color: #FFF;" +

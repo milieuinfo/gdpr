@@ -433,6 +433,10 @@
                     'zendantennes-oefen.milieuinfo.be': {
                         'id': 10,
                         'url': matomoOefenUrl
+                    },
+                    'www2-oefen.omgeving.vlaanderen.be': {
+                        'id': 12,
+                        'url': matomoOefenUrl
                     }
                 }[window.location.host];
             }
@@ -453,6 +457,10 @@
                     },
                     'www.omgevingsloket.be': {
                         'id': 14,
+                        'url': matomoProdUrl
+                    },
+                    'www2.omgeving.vlaanderen.be': {
+                        'id': 27,
                         'url': matomoProdUrl
                     }
                 }[window.location.host];

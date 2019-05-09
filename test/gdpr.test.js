@@ -335,6 +335,28 @@ suite('gdpr', function() {
 			done();
 		});
 	});
+
+	test('na het resetten worden de waardes van de opt-ins teruggezet naar hun initiele waardes', (done) => {
+		const dom = setupMetExtraOptIn(true, false);
+		dom.reconfigure({ url: 'https://' + host });
+		dom.window.addEventListener('load', function() {
+			const window = dom.window;
+			const document = window.document;
+			const gdprModal = document.getElementById('gdpr_modal');
+			const gdprModalBtn = gdprModal.getElementsByTagName('button')[0];
+			assert.isEmpty(document.cookie);
+			gdprModalBtn.click();
+			assert.include(document.cookie, 'vo_gdpr=true');
+			assert.include(document.cookie, 'vo_socialmedia=true');
+			window.GDPR.reset();
+			assert.isEmpty(document.cookie);
+			window.GDPR.open();
+			gdprModalBtn.click();
+			assert.include(document.cookie, 'vo_gdpr=true');
+			assert.include(document.cookie, 'vo_socialmedia=true');
+			done();
+		});
+	});
 	
 	test('de gebruikersstatistieken kunnen opnieuw bevestigd worden en er zullen dan geen dubbele gebruikersstatistieken verwerkt worden', (done) => {
 		const dom = setup();

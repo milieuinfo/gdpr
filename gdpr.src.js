@@ -27,7 +27,6 @@
 
     function GDPR() {
         var optIns = {};
-        var defaultOptInValues = {};
         var cookiePrefix = 'vo_';
         var matomoScriptId = 'gdpr_matomo_script';
         var matomoPiwikScriptId = 'gdpr_matomo_piwik_script';
@@ -76,26 +75,21 @@
 
         function addOptIn(name, label, description, value, required, activationCallback, deactivationCallback) {
             if (!optIns[name]) {
+                const storedValue = getCookie(name);
                 optIns[name] = {
                     'name': name,
                     'label': label,
                     'description': description,
-                    'value': getCookie(name) || value,
+                    'value': storedValue !== undefined ? storedValue : value,
                     'activate': activationCallback,
                     'deactivate': deactivationCallback,
                     'required': !!required
                 };
-
-                storeDefaultOptInValue(optIns[name], value);
             }
         }
 
         function resetOptInValue(optIn) {
-            optIn.value = defaultOptInValues[optIn.name];
-        }
-
-        function storeDefaultOptInValue(optIn, defaultValue) {
-            defaultOptInValues[optIn.name] = defaultValue;
+            optIn.value = getOptInValueAttribute(optIn.name);
         }
 
         function addFunctionalOptIn() {

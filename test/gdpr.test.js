@@ -64,7 +64,7 @@ function setupZonderAutoOpenExpliciet() {
     });
 }
 
-function setupMetExtraOptIn(value, required) {
+function setupMetExtraOptIn(value, required, cookieJar) {
     return new JSDOM(`
 		<head>
 			<script id='gdpr_script' src='./gdpr.src.js' data-auto-open data-opt-in-socialmedia-label="sociale media" data-opt-in-socialmedia-description="beschrijving sociale media" data-opt-in-socialmedia-value="${value}" data-opt-in-socialmedia-required="${required}"></script>
@@ -73,7 +73,8 @@ function setupMetExtraOptIn(value, required) {
         runScripts: 'dangerously',
         resources: 'usable',
         required: required,
-        value: value
+        value: value,
+		cookieJar: cookieJar
     });
 }
 
@@ -345,15 +346,24 @@ suite('gdpr', function() {
 			const gdprModal = document.getElementById('gdpr_modal');
 			const gdprModalBtn = gdprModal.getElementsByTagName('button')[0];
 			assert.isEmpty(document.cookie);
+
 			gdprModalBtn.click();
 			assert.include(document.cookie, 'vo_gdpr=true');
 			assert.include(document.cookie, 'vo_socialmedia=true');
-			window.GDPR.reset();
+
+			document.cookie = 'vo_gdpr=false';
+			document.cookie = 'vo_socialmedia=false';
+            assert.include(document.cookie, 'vo_gdpr=false');
+            assert.include(document.cookie, 'vo_socialmedia=false');
+
+            window.GDPR.reset();
 			assert.isEmpty(document.cookie);
+
 			window.GDPR.open();
 			gdprModalBtn.click();
 			assert.include(document.cookie, 'vo_gdpr=true');
 			assert.include(document.cookie, 'vo_socialmedia=true');
+
 			done();
 		});
 	});
@@ -549,4 +559,19 @@ suite('gdpr', function() {
             gdprModalBtn.click();
         });
     });
+
+	test('de checkbox van een opt-in met default waarde "true" wordt niet aangevinkt indien de value in de cookie false is', (done) => {
+		const cookieJar = new jsdom.CookieJar();
+		const url = 'https://' + host;
+		cookieJar.setCookieSync('vo_socialmedia=false', url);
+		let dom = setupMetExtraOptIn(true, false, cookieJar);
+		dom.reconfigure({ url: url });
+		let window = dom.window;
+		let document = window.document;
+		dom.window.addEventListener('load', function() {
+			const extraOptInInput = document.getElementById('socialmedia_input');
+			assert.isFalse(extraOptInInput.checked);
+			done();
+		});
+	});
 });

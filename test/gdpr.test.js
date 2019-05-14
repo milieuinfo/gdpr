@@ -7,6 +7,7 @@ const { JSDOM } = jsdom;
 
 const host = 'zendantennes-ontwikkel.milieuinfo.be';
 const gdprCookie = 'vo_gdpr=true;Max-Age=2147483647;path=/';
+const gdprDateCookie = 'vo_gdpr_date=1557848372873;Max-Age=2147483647;path=/';
 const socialMediaCookie = 'vo_socialmedia=true;Max-Age=2147483647;path=/';
 
 function setup() {
@@ -181,6 +182,7 @@ suite('gdpr', function() {
 		const window = dom.window;
 		const document = window.document;
 		document.cookie = gdprCookie;
+		document.cookie = gdprDateCookie;
 		dom.window.addEventListener('load', function() {
 			document.getElementById('gdpr_modal');
 			assert.notExists(document.getElementById('gdpr_modal'));
@@ -329,6 +331,7 @@ suite('gdpr', function() {
 			assert.isEmpty(document.cookie);
 			gdprModalBtn.click();
 			assert.include(document.cookie, 'vo_gdpr');
+			assert.include(document.cookie, 'vo_gdpr_date');
 			assert.include(document.cookie, 'vo_socialmedia');
 			window.GDPR.reset();
 			assert.isEmpty(document.cookie);
@@ -526,5 +529,32 @@ suite('gdpr', function() {
             socialMediaInput.click();
             gdprModalBtn.click();
         });
-    });
+	});
+	
+	test('wanneer de GDPR modal ooit al eens gesloten werd, maar de gdpr reset datum niet bestaat zal de modal opnieuw getoond worden', (done) => {
+		const dom = setup();
+		dom.reconfigure({url: 'https://' + host});
+		const window = dom.window;
+		const document = window.document;
+		document.cookie = gdprCookie;
+		dom.window.addEventListener('load', function() {
+			document.getElementById('gdpr_modal');
+			assert.exists(document.getElementById('gdpr_modal'));
+			done();
+		});
+	});
+	
+	test('wanneer de GDPR modal ooit al eens gesloten werd, maar de gdpr reset datum recenter is dan de GDPR datum cookie, zal de modal opnieuw getoond worden', (done) => {
+		const dom = setup();
+		dom.reconfigure({url: 'https://' + host});
+		const window = dom.window;
+		const document = window.document;
+		document.cookie = gdprCookie;
+		document.cookie = "vo_gdpr_date=1556661600000;Max-Age=2147483647;path=/";
+		dom.window.addEventListener('load', function() {
+			document.getElementById('gdpr_modal');
+			assert.exists(document.getElementById('gdpr_modal'));
+			done();
+		});
+	});
 });

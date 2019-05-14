@@ -28,6 +28,9 @@
     function GDPR() {
         var optIns = {};
         var cookiePrefix = 'vo_';
+        var gdprCookieName = 'gdpr';
+        var gdprCookieDateName = 'gdpr_date';
+        var gdprResetDate = new Date('2019/05/14');
         var matomoScriptId = 'gdpr_matomo_script';
         var matomoPiwikScriptId = 'gdpr_matomo_piwik_script';
         var matomoOntwikkelUrl = '//stats-ontwikkel.milieuinfo.be/';
@@ -47,7 +50,8 @@
         this.addOptIn = addOptIn;
 
         this.reset = function () {
-            deleteCookie('gdpr');
+            deleteCookie(gdprCookieName);
+            deleteCookie(gdprCookieDateName);
             Object.values(optIns).forEach(function (optIn) {
                 deleteCookie(optIn.name);
                 delete optIn.value;
@@ -71,6 +75,10 @@
 
         if (getScriptBooleanAttribute('auto-open', false) && Object.keys(optIns).length > 0) {
             open();
+        }
+
+        if (getCookie(gdprCookieName) && (!getCookie(gdprCookieDateName) || new Date(getCookie(gdprCookieDateName)) < gdprResetDate)) {
+            open(true);
         }
 
         function addOptIn(name, label, description, value, required, activationCallback, deactivationCallback) {
@@ -126,7 +134,7 @@
         }
 
         function open(forced) {
-            if (!getCookie('gdpr') || forced) {
+            if (!getCookie(gdprCookieName) || forced) {
                 document.body.appendChild(createModalElement());
                 document.body.appendChild(overlayElement || createOverlayElement());
             } else {
@@ -145,7 +153,8 @@
 
             processOptInCookies();
             processOptIns();
-            setCookie('gdpr', true);
+            setCookie(gdprCookieName, true);
+            setCookie(gdprCookieDateName, new Date().getTime());
         }
 
         function getScriptAttribute(key) {

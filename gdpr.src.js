@@ -502,7 +502,11 @@
                     cookie = cookie.substring(1);
                 }
                 if (cookie.indexOf(name) == 0) {
-                    return JSON.parse(cookie.substring(name.length, cookie.length));
+                    try {
+                        return JSON.parse(cookie.substring(name.length, cookie.length));
+                    } catch(error) {
+                        return null;
+                    }
                 }
             }
         }

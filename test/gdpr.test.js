@@ -531,7 +531,7 @@ suite('gdpr', function() {
         });
 	});
 	
-	test('wanneer de GDPR modal ooit al eens gesloten werd, maar de gdpr reset datum niet bestaat zal de modal opnieuw getoond worden', (done) => {
+	test('wanneer de GDPR modal ooit al eens gesloten werd, maar de GDPR reset datum niet bestaat zal de modal opnieuw getoond worden', (done) => {
 		const dom = setup();
 		dom.reconfigure({url: 'https://' + host});
 		const window = dom.window;
@@ -544,13 +544,27 @@ suite('gdpr', function() {
 		});
 	});
 	
-	test('wanneer de GDPR modal ooit al eens gesloten werd, maar de gdpr reset datum recenter is dan de GDPR datum cookie, zal de modal opnieuw getoond worden', (done) => {
+	test('wanneer de GDPR modal ooit al eens gesloten werd, maar de GDPR reset datum recenter is dan de GDPR datum cookie, zal de modal opnieuw getoond worden', (done) => {
 		const dom = setup();
 		dom.reconfigure({url: 'https://' + host});
 		const window = dom.window;
 		const document = window.document;
 		document.cookie = gdprCookie;
 		document.cookie = "vo_gdpr_date=1556661600000;Max-Age=2147483647;path=/";
+		dom.window.addEventListener('load', function() {
+			document.getElementById('gdpr_modal');
+			assert.exists(document.getElementById('gdpr_modal'));
+			done();
+		});
+	});
+	
+	test('wanneer de GDPR modal ooit al eens gesloten werd, maar de GDPR datum cookie niet ingelezen kan woorden, zal de modal opnieuw getoond worden', (done) => {
+		const dom = setup();
+		dom.reconfigure({url: 'https://' + host});
+		const window = dom.window;
+		const document = window.document;
+		document.cookie = gdprCookie;
+		document.cookie = "vo_gdpr_date=geen_datum;Max-Age=2147483647;path=/";
 		dom.window.addEventListener('load', function() {
 			document.getElementById('gdpr_modal');
 			assert.exists(document.getElementById('gdpr_modal'));

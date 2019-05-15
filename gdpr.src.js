@@ -54,7 +54,7 @@
             deleteCookie(gdprCookieDateName);
             Object.values(optIns).forEach(function (optIn) {
                 deleteCookie(optIn.name);
-                delete optIn.value;
+                resetOptInValue(optIn);
                 if (optIn.deactivate) {
                     optIn.deactivate();
                 }
@@ -83,16 +83,21 @@
 
         function addOptIn(name, label, description, value, required, activationCallback, deactivationCallback) {
             if (!optIns[name]) {
+                const storedValue = getCookie(name);
                 optIns[name] = {
                     'name': name,
                     'label': label,
                     'description': description,
-                    'value': getCookie(name) || value,
+                    'value': storedValue !== undefined ? storedValue : value,
                     'activate': activationCallback,
                     'deactivate': deactivationCallback,
                     'required': !!required
-                }
+                };
             }
+        }
+
+        function resetOptInValue(optIn) {
+            optIn.value = getOptInValueAttribute(optIn.name);
         }
 
         function addFunctionalOptIn() {
@@ -118,7 +123,7 @@
 
             if (isOptIn('functional', true)) {
                 addFunctionalOptIn();
-                
+
                 if (isOptIn('analytics', true)) {
                     addAnalytics();
                 }

@@ -550,7 +550,7 @@ suite('gdpr', function() {
 		const window = dom.window;
 		const document = window.document;
 		document.cookie = gdprCookie;
-		document.cookie = "vo_gdpr_date=1556661600000;Max-Age=2147483647;path=/";
+		document.cookie = 'vo_gdpr_date=1556661600000;Max-Age=2147483647;path=/';
 		dom.window.addEventListener('load', function() {
 			document.getElementById('gdpr_modal');
 			assert.exists(document.getElementById('gdpr_modal'));
@@ -564,7 +564,7 @@ suite('gdpr', function() {
 		const window = dom.window;
 		const document = window.document;
 		document.cookie = gdprCookie;
-		document.cookie = "vo_gdpr_date=geen_datum;Max-Age=2147483647;path=/";
+		document.cookie = 'vo_gdpr_date="geen";Max-Age=2147483647;path=/';
 		dom.window.addEventListener('load', function() {
 			document.getElementById('gdpr_modal');
 			assert.exists(document.getElementById('gdpr_modal'));

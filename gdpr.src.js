@@ -77,8 +77,17 @@
             open();
         }
 
-        if (getCookie(gdprCookieName) && (!getCookie(gdprCookieDateName) || new Date(getCookie(gdprCookieDateName)) < gdprResetDate)) {
+        if (getCookie(gdprCookieName) && (!getCookie(gdprCookieDateName) || gdprCookieDateOngeldig())) {
             open(true);
+        }
+
+        function gdprCookieDateOngeldig() {
+            var value = getCookie(gdprCookieDateName);
+            if (isNaN(value)) {
+                return true;
+            } else {
+                return (new Date(getCookie(gdprCookieDateName)) < gdprResetDate);
+            }
         }
 
         function addOptIn(name, label, description, value, required, activationCallback, deactivationCallback) {
@@ -504,8 +513,8 @@
                 if (cookie.indexOf(name) == 0) {
                     try {
                         return JSON.parse(cookie.substring(name.length, cookie.length));
-                    } catch(error) {
-                        return null;
+                    } catch (error) {
+                        return cookie.substring(name.length, cookie.length);
                     }
                 }
             }

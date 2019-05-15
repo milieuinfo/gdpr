@@ -577,7 +577,6 @@ suite('gdpr', function() {
 			done();
 		});
 	});
-	});
 
 	test('wanneer de GDPR modal ooit al eens gesloten werd, maar de GDPR reset datum niet bestaat zal de modal opnieuw getoond worden', (done) => {
 		const dom = setup();

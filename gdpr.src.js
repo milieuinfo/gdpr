@@ -467,7 +467,7 @@
                     },
                     'mobiscore-oefen.omgeving.vlaanderen.be': {
                         'id': 14,
-                        'url': matomoOntwikkelUrl
+                        'url': matomoOefenUrl
                     }
                 }[window.location.host];
             }
@@ -496,7 +496,7 @@
                     },
                     'mobiscore.omgeving.vlaanderen.be': {
                         'id': 29,
-                        'url': matomoOntwikkelUrl
+                        'url': matomoProdUrl
                     }
                 }[window.location.host];
             }

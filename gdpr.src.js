@@ -428,6 +428,10 @@
                 'vsm-ontwikkel.milieuinfo.be': {
                     'id': 16,
                     'url': matomoOntwikkelUrl
+                },
+                'mobiscore-ontwikkel.omgeving.vlaanderen.be': {
+                    'id': 22,
+                    'url': matomoOntwikkelUrl
                 }
             }[window.location.host];
 
@@ -460,6 +464,10 @@
                     'www2-oefen.omgeving.vlaanderen.be': {
                         'id': 12,
                         'url': matomoOefenUrl
+                    },
+                    'mobiscore-oefen.omgeving.vlaanderen.be': {
+                        'id': 14,
+                        'url': matomoOntwikkelUrl
                     }
                 }[window.location.host];
             }
@@ -485,6 +493,10 @@
                     'www2.omgeving.vlaanderen.be': {
                         'id': 27,
                         'url': matomoProdUrl
+                    },
+                    'mobiscore.omgeving.vlaanderen.be': {
+                        'id': 29,
+                        'url': matomoOntwikkelUrl
                     }
                 }[window.location.host];
             }

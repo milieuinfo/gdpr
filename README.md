@@ -113,7 +113,7 @@ Standaard is een opt-in niet verplicht, maar een opt-in kan ook verplicht zijn. 
 Of, als je liever met JavaScript werkt:
 
 ```javascript
-GDPR.addOptIn('socialmedia', 'sociale media', 'beschrijving sociale media', () => { if (aangevinkt) { return true; } else { return false; } }, () => { if (required) { return true; } else { return false; } }, () => console.log('activation'), () => console.log('deactivation'));
+GDPR.addOptIn('socialmedia', 'Sociale media', 'Beschrijving sociale media', null, false, () => { console.log('de gebruiker heeft de statistieken cookies geaccepteerd'); }, () => { console.log('de gebruiker heeft de statistieken cookies geweigerd'); });
 ```
 
 Zoals je ziet kan je via JavaScript ook callbacks toevoegen die opgeroepen worden bij het activeren van een opt-in keuze of het deactiveren ervan. Dit kan ook wanneer je een extra opt-in keuze hebt toevoegd via een attribuut op de script tag:

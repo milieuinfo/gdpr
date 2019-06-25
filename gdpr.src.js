@@ -497,6 +497,22 @@
                     'mobiscore.omgeving.vlaanderen.be': {
                         'id': 29,
                         'url': matomoProdUrl
+                    },
+                    'ruimtelijkeordening.be': {
+                        'id': 30,
+                        'url': matomoProdUrl
+                    },
+                    'complexeprojecten.be': {
+                        'id': 31,
+                        'url': matomoProdUrl
+                    },
+                    'rsv.ruimtevlaanderen.be': {
+                        'id': 32,
+                        'url': matomoProdUrl
+                    },
+                    'ena.ruimtevlaanderen.be': {
+                        'id': 33,
+                        'url': matomoProdUrl
                     }
                 }[window.location.host];
             }

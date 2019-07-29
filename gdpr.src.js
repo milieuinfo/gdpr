@@ -432,6 +432,10 @@
                 'mobiscore-ontwikkel.omgeving.vlaanderen.be': {
                     'id': 22,
                     'url': matomoOntwikkelUrl
+                },
+                'erkenningencontactgegevens-ontwikkel.omgeving.vlaanderen.be': {
+                    'id': 24,
+                    'url': matomoOntwikkelUrl
                 }
             }[window.location.host];
 
@@ -467,6 +471,10 @@
                     },
                     'mobiscore-oefen.omgeving.vlaanderen.be': {
                         'id': 14,
+                        'url': matomoOefenUrl
+                    },
+                    'erkenningencontactgegevens-oefen.omgeving.vlaanderen.be': {
+                        'id': 16,
                         'url': matomoOefenUrl
                     }
                 }[window.location.host];
@@ -512,6 +520,10 @@
                     },
                     'ena.ruimtevlaanderen.be': {
                         'id': 33,
+                        'url': matomoProdUrl
+                    },
+                    'erkenningencontactgegevens.omgeving.vlaanderen.be': {
+                        'id':44,
                         'url': matomoProdUrl
                     }
                 }[window.location.host];

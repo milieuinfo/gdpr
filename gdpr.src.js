@@ -623,8 +623,11 @@
                 "" +
                 "#gdpr_modal #gdpr_modal_titel {" +
                 "margin-top: 0px;" +
+                "font-size: 2rem;" +
                 "}" +
-                "" +
+                "#gdpr_modal #gdpr_modal_tekst p {" +
+                "margin-bottom: 1.8rem;" +
+                "}" +
                 "#gdpr_modal #gdpr_modal_tekst ul {" +
                 "list-style-type: none;" +
                 "padding-left: 20px;" +

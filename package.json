@@ -4,11 +4,12 @@
   "description": "gdpr opt in",
   "main": "gdpr.js",
   "scripts": {
-    "install": "npm run install:build && npm run install:commit",
-    "install:build": "uglifyjs --compress --mangle --output gdpr.js -- *.src.js",
-    "install:commit": "git add gdpr.js && git commit --amend --no-edit && git pull",
     "test": "./node_modules/mocha/bin/mocha --ui tdd test/**/*.test.js --reporter spec",
-    "release": "np"
+    "release": "np",
+    "release:prepare": "npm run release:prepare:build && npm run release:prepare:commit",
+    "release:prepare:build": "uglifyjs --compress --mangle --output gdpr.js -- *.src.js",
+    "release:prepare:commit": "git add gdpr.js && git commit --amend --no-edit && git pull",
+    "release:testless": "np --yolo"
   },
   "author": "Tom Coemans",
   "license": "ISC",

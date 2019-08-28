@@ -83,7 +83,7 @@
 
         function gdprCookieDateOngeldig() {
             var value = getCookie(gdprCookieDateName);
-            if (isNaN(value)) {}
+            if (isNaN(value)) {
                 return true;
             } else {
                 return (new Date(getCookie(gdprCookieDateName)) < gdprResetDate);

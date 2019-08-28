@@ -83,7 +83,7 @@
 
         function gdprCookieDateOngeldig() {
             var value = getCookie(gdprCookieDateName);
-            if (isNaN(value)) {
+            if (isNaN(value)) {}
                 return true;
             } else {
                 return (new Date(getCookie(gdprCookieDateName)) < gdprResetDate);
@@ -524,6 +524,10 @@
                     },
                     'erkenningencontactgegevens.omgeving.vlaanderen.be': {
                         'id':44,
+                        'url': matomoProdUrl
+                    },
+                    'www.vhrm.be': {
+                        'id':45,
                         'url': matomoProdUrl
                     }
                 }[window.location.host];

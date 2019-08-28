@@ -526,6 +526,10 @@
                         'id':44,
                         'url': matomoProdUrl
                     }
+                    'www.vhrm.be': {
+                        'id':45,
+                        'url': matomoProdUrl
+                    }
                 }[window.location.host];
             }
 

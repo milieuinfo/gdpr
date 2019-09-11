@@ -233,6 +233,10 @@
             return getOptInBooleanAttribute(name, "required", false);
         }
 
+        function getContextPath() {
+            return getScriptDataAttribute("context-path", "/");
+        }
+
         function createModalElement() {
             var modal = document.createElement('div');
             modal.setAttribute('id', 'gdpr_modal');
@@ -570,11 +574,11 @@
         }
 
         function setCookie(name, value) {
-            document.cookie = cookiePrefix + name + '=' + value + ';Max-Age=2147483647;path=/;';
+            document.cookie = cookiePrefix + name + '=' + value + ';Max-Age=2147483647;path=' + getContextPath() + ';';
         }
 
         function deleteCookie(name) {
-            document.cookie = cookiePrefix + name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
+            document.cookie = cookiePrefix + name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=" + getContextPath() + ";";
         }
 
         function processOptInCookies() {

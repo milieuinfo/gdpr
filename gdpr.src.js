@@ -392,155 +392,183 @@
         }
 
         function getMatomoId() {
-            var match = {
-                'stats-ontwikkel.milieuinfo.be': {
-                    'id': 1,
-                    'url': matomoOntwikkelUrl
+            var matchers = [
+                {
+                    pattern: /^https?:\/\/vsm\.milieuinfo\.be/,
+                    id: 9,
+                    url: matomoProdUrl
                 },
-                'ontwikkel.milieuinfo.be': {
-                    'id': 2,
-                    'url': matomoOntwikkelUrl
+                {
+                    pattern: /^https?:\/\/rupadviestoets\.milieuinfo\.be/,
+                    id: 11,
+                    url: matomoProdUrl
                 },
-                'ontwikkel.omgevingsloket.be': {
-                    'id': 3,
-                    'url': matomoOntwikkelUrl
+                {
+                    pattern: /^https?:\/\/zendantennes\.milieuinfo\.be/,
+                    id: 12,
+                    url: matomoProdUrl
                 },
-                'bredero-ontwikkel.ruimteinfo.be': {
-                    'id': 5,
-                    'url': matomoOntwikkelUrl
+                {
+                    pattern: /^https?:\/\/www\.omgevingsloket\.be/,
+                    id: 14,
+                    url: matomoProdUrl
                 },
-                'bredero-bupo-ontwikkel.ruimteinfo.be': {
-                    'id': 6,
-                    'url': matomoOntwikkelUrl
+                {
+                    pattern: /^https?:\/\/www2\.omgeving\.vlaanderen\.be/,
+                    id: 27,
+                    url: matomoProdUrl
                 },
-                'bredero-xfr-ontwikkel.ruimteinfo.be': {
-                    'id': 7,
-                    'url': matomoOntwikkelUrl
+                {
+                    pattern: /^https?:\/\/mobiscore\.omgeving\.vlaanderen\.be/,
+                    id: 29,
+                    url: matomoProdUrl
                 },
-                'ontwikkel.ruimtemonitor.be': {
-                    'id': 8,
-                    'url': matomoOntwikkelUrl
+                {
+                    pattern: /^https?:\/\/ruimtelijkeordening\.be/,
+                    id: 30,
+                    url: matomoProdUrl
                 },
-                'rupadviestoets-ontwikkel.milieuinfo.be': {
-                    'id': 9,
-                    'url': matomoOntwikkelUrl
+                {
+                    pattern: /^https?:\/\/complexeprojecten\.be/,
+                    id: 31,
+                    url: matomoProdUrl
                 },
-                'zendantennes-ontwikkel.milieuinfo.be': {
-                    'id': 13,
-                    'url': matomoOntwikkelUrl
+                {
+                    pattern: /^https?:\/\/rsv\.ruimtevlaanderen\.be/,
+                    id: 32,
+                    url: matomoProdUrl
                 },
-                'vsm-ontwikkel.milieuinfo.be': {
-                    'id': 16,
-                    'url': matomoOntwikkelUrl
+                {
+                    pattern: /^https?:\/\/ena\.ruimtevlaanderen\.be/,
+                    id: 33,
+                    url: matomoProdUrl
                 },
-                'mobiscore-ontwikkel.omgeving.vlaanderen.be': {
-                    'id': 22,
-                    'url': matomoOntwikkelUrl
+                {
+                    pattern: /^https?:\/\/erkenningencontactgegevens\.omgeving\.vlaanderen\.be/,
+                    id: 44,
+                    url: matomoProdUrl
                 },
-                'erkenningencontactgegevens-ontwikkel.omgeving.vlaanderen.be': {
-                    'id': 24,
-                    'url': matomoOntwikkelUrl
+                {
+                    pattern: /^https?:\/\/www\.vhrm\.be/,
+                    id: 45,
+                    url: matomoProdUrl
+                },
+                {
+                    pattern: /^https?:\/\/stats-oefen\.milieuinfo\.be/,
+                    id: 1,
+                    url: matomoOefenUrl
+                },
+                {
+                    pattern: /^https?:\/\/oefen\.ruimtemonitor\.be/,
+                    id: 2,
+                    url: matomoOefenUrl
+                },
+                {
+                    pattern: /^https?:\/\/oefen\.omgevingsloket\.be/,
+                    id: 4,
+                    url: matomoOefenUrl
+                },
+                {
+                    pattern: /^https?:\/\/vsm-oefen\.milieuinfo\.be/,
+                    id: 8,
+                    url: matomoOefenUrl
+                },
+                {
+                    pattern: /^https?:\/\/rupadviestoets-oefen\.milieuinfo\.be/,
+                    id: 9,
+                    url: matomoOefenUrl
+                },
+                {
+                    pattern: /^https?:\/\/zendantennes-oefen\.milieuinfo\.be/,
+                    id: 10,
+                    url: matomoOefenUrl
+                },
+                {
+                    pattern: /^https?:\/\/www2-oefen\.omgeving\.vlaanderen\.be/,
+                    id: 12,
+                    url: matomoOefenUrl
+                },
+                {
+                    pattern: /^https?:\/\/mobiscore-oefen\.omgeving\.vlaanderen\.be/,
+                    id: 14,
+                    url: matomoOefenUrl
+                },
+                {
+                    pattern: /^https?:\/\/erkenningencontactgegevens-oefen\.omgeving\.vlaanderen\.be/,
+                    id: 16,
+                    url: matomoOefenUrl
+                },
+                {
+                    pattern: /^https?:\/\/stats-ontwikkel\.milieuinfo\.be/,
+                    id: 1,
+                    url: matomoOntwikkelUrl
+                },
+                {
+                    pattern: /^https?:\/\/ontwikkel\.milieuinfo\.be/,
+                    id: 2,
+                    url: matomoOntwikkelUrl
+                },
+                {
+                    pattern: /^https?:\/\/ontwikkel\.omgevingsloket\.be/,
+                    id: 3,
+                    url: matomoOntwikkelUrl
+                },
+                {
+                    pattern: /^https?:\/\/bredero-ontwikkel\.ruimteinfo\.be/,
+                    id: 5,
+                    url: matomoOntwikkelUrl
+                },
+                {
+                    pattern: /^https?:\/\/bredero-bupo-ontwikkel\.ruimteinfo\.be/,
+                    id: 6,
+                    url: matomoOntwikkelUrl
+                },
+                {
+                    pattern: /^https?:\/\/bredero-xfr-ontwikkel\.ruimteinfo\.be/,
+                    id: 7,
+                    url: matomoOntwikkelUrl
+                },
+                {
+                    pattern: /^https?:\/\/ontwikkel\.ruimtemonitor\.be/,
+                    id: 8,
+                    url: matomoOntwikkelUrl
+                },
+                {
+                    pattern: /^https?:\/\/rupadviestoets-ontwikkel\.milieuinfo\.be/,
+                    id: 9,
+                    url: matomoOntwikkelUrl
+                },
+                {
+                    pattern: /^https?:\/\/zendantennes-ontwikkel\.milieuinfo\.be/,
+                    id: 13,
+                    url: matomoOntwikkelUrl
+                },
+                {
+                    pattern: /^https?:\/\/vsm-ontwikkel\.milieuinfo\.be/,
+                    id: 16,
+                    url: matomoOntwikkelUrl
+                },
+                {
+                    pattern: /^https?:\/\/mobiscore-ontwikkel\.omgeving\.vlaanderen\.be/,
+                    id: 22,
+                    url: matomoOntwikkelUrl
+                },
+                {
+                    pattern: /^https?:\/\/erkenningencontactgegevens-ontwikkel\.omgeving\.vlaanderen\.be/,
+                    id: 24,
+                    url: matomoOntwikkelUrl
                 }
-            }[window.location.host];
+            ];
 
-            if (!match) {
-                match = {
-                    'stats-oefen.milieuinfo.be': {
-                        'id': 1,
-                        'url': matomoOefenUrl
-                    },
-                    'oefen.ruimtemonitor.be': {
-                        'id': 2,
-                        'url': matomoOefenUrl
-                    },
-                    'oefen.omgevingsloket.be': {
-                        'id': 4,
-                        'url': matomoOefenUrl
-                    },
-                    'vsm-oefen.milieuinfo.be': {
-                        'id': 8,
-                        'url': matomoOefenUrl
-                    },
-                    'rupadviestoets-oefen.milieuinfo.be': {
-                        'id': 9,
-                        'url': matomoOefenUrl
-                    },
-                    'zendantennes-oefen.milieuinfo.be': {
-                        'id': 10,
-                        'url': matomoOefenUrl
-                    },
-                    'www2-oefen.omgeving.vlaanderen.be': {
-                        'id': 12,
-                        'url': matomoOefenUrl
-                    },
-                    'mobiscore-oefen.omgeving.vlaanderen.be': {
-                        'id': 14,
-                        'url': matomoOefenUrl
-                    },
-                    'erkenningencontactgegevens-oefen.omgeving.vlaanderen.be': {
-                        'id': 16,
-                        'url': matomoOefenUrl
-                    }
-                }[window.location.host];
+            for (var i = 0; i < matchers.length; i++) {
+                var match = matchers[i];
+                if(match.pattern.test(window.location.href)) {
+                    return match;
+                }
             }
 
-            if (!match) {
-                match = {
-                    'vsm.milieuinfo.be': {
-                        'id': 9,
-                        'url': matomoProdUrl
-                    },
-                    'rupadviestoets.milieuinfo.be': {
-                        'id': 11,
-                        'url': matomoProdUrl
-                    },
-                    'zendantennes.milieuinfo.be': {
-                        'id': 12,
-                        'url': matomoProdUrl
-                    },
-                    'www.omgevingsloket.be': {
-                        'id': 14,
-                        'url': matomoProdUrl
-                    },
-                    'www2.omgeving.vlaanderen.be': {
-                        'id': 27,
-                        'url': matomoProdUrl
-                    },
-                    'mobiscore.omgeving.vlaanderen.be': {
-                        'id': 29,
-                        'url': matomoProdUrl
-                    },
-                    'ruimtelijkeordening.be': {
-                        'id': 30,
-                        'url': matomoProdUrl
-                    },
-                    'complexeprojecten.be': {
-                        'id': 31,
-                        'url': matomoProdUrl
-                    },
-                    'rsv.ruimtevlaanderen.be': {
-                        'id': 32,
-                        'url': matomoProdUrl
-                    },
-                    'ena.ruimtevlaanderen.be': {
-                        'id': 33,
-                        'url': matomoProdUrl
-                    },
-                    'erkenningencontactgegevens.omgeving.vlaanderen.be': {
-                        'id':44,
-                        'url': matomoProdUrl
-                    },
-                    'www.vhrm.be': {
-                        'id':45,
-                        'url': matomoProdUrl
-                    }
-                }[window.location.host];
-            }
-
-            if (!match) {
-                console.error('de website is nog niet gekend bij ons dus er zullen geen gebruikersstatistieken bijgehouden worden');
-            }
-            return match;
+            console.error('de website is nog niet gekend bij ons dus er zullen geen gebruikersstatistieken bijgehouden worden');
+            return null;
         }
 
         function addStyleLink() {

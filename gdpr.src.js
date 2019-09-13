@@ -454,6 +454,11 @@
                     url: matomoProdUrl
                 },
                 {
+                    pattern: /^https?:\/\/www\.milieuinfo\.be(:\d+)?\/servicedesk/,
+                    id: 48,
+                    url: matomoProdUrl
+                },
+                {
                     pattern: /^https?:\/\/stats-oefen\.milieuinfo\.be/,
                     id: 1,
                     url: matomoOefenUrl
@@ -496,6 +501,11 @@
                 {
                     pattern: /^https?:\/\/erkenningencontactgegevens-oefen\.omgeving\.vlaanderen\.be/,
                     id: 16,
+                    url: matomoOefenUrl
+                },
+                {
+                    pattern: /^https?:\/\/oefen\.milieuinfo\.be(:\d+)?\/servicedesk/,
+                    id: 19,
                     url: matomoOefenUrl
                 },
                 {
@@ -556,6 +566,11 @@
                 {
                     pattern: /^https?:\/\/erkenningencontactgegevens-ontwikkel\.omgeving\.vlaanderen\.be/,
                     id: 24,
+                    url: matomoOntwikkelUrl
+                },
+                {
+                    pattern: /^https?:\/\/ontwikkel\.milieuinfo\.be(:\d+)?\/servicedesk/,
+                    id: 27,
                     url: matomoOntwikkelUrl
                 }
             ];

@@ -79,6 +79,17 @@ function setupMetExtraOptIn(value, required, cookieJar) {
     });
 }
 
+function setupMetContextPath() {
+	return new JSDOM(`
+		<head>
+			<script id='gdpr_script' src='./gdpr.src.js' data-auto-open data-context-path="/foobar"></script>
+		</head>
+	`, {
+		runScripts: 'dangerously',
+		resources: 'usable'
+	});
+}
+
 const sandbox = sinon.createSandbox();
 
 suite('gdpr', function() {
@@ -615,6 +626,20 @@ suite('gdpr', function() {
 		dom.window.addEventListener('load', function() {
 			document.getElementById('gdpr_modal');
 			assert.exists(document.getElementById('gdpr_modal'));
+			done();
+		});
+	});
+
+	test('wanneer een context path geconfigureerd werd, zal de cookie geset worden onder het geconfigureerde path', (done) => {
+		const dom = setupMetContextPath();
+		dom.reconfigure({url: 'https://' + host + '/foobar'});
+		dom.window.addEventListener('load', function() {
+			const window = dom.window;
+			const document = window.document;
+			const gdprModal = document.getElementById('gdpr_modal');
+			const gdprModalBtn = gdprModal.getElementsByTagName('button')[0];
+			gdprModalBtn.click();
+			assert.include(document.cookie, 'vo_gdpr=true');
 			done();
 		});
 	});

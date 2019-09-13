@@ -48,6 +48,17 @@ Bij het gebruik van auto-open moet het body element aanwezig zijn bij het inlade
 <script id="gdpr_script" src="https://cdn.milieuinfo.be/gdpr/LATEST/gdpr.js" async></script>
 ```
 
+### Context pad
+
+Indien er meerdere websites onder hetzelfde domein gehost worden, is het best om mee te geven onder welk pad je website gehost wordt.
+Op deze manier kan de GDPR modal per website bijhouden welke toestemming de gebruiker heeft gegeven.
+
+Het configureren van dit pad kan met behulp van het "data-context-path" attribuut op de script tag:
+
+```html
+<script id="gdpr_script" src="https://cdn.milieuinfo.be/gdpr/LATEST/gdpr.js" data-context-path="/foobar"></script>
+```
+
 ### Functionele cookies
 
 Standaard zal de gebruiker geïnformeerd worden dat er gebruik gemaakt wordt van functionele of noodzakelijke cookies. De gebruiker kan deze optie niet uitschakelen en zal dus verplicht akkoord moeten zijn dat dit soort cookies gebruikt worden. Indien dergelijke cookies niet van toepassing zijn, kan deze optie uitgeschakeld worden.

@@ -4,6 +4,8 @@
   "description": "gdpr opt in",
   "main": "gdpr.js",
   "scripts": {
+    "prepare": "npm update --dev vl-ui-util && npm run prepare:util",
+    "prepare:util": "npm explore vl-ui-util -- npm run install:utils",
     "test": "./node_modules/mocha/bin/mocha --ui tdd test/**/*.test.js --reporter spec",
     "release": "np",
     "release:prepare": "npm run release:prepare:build && npm run release:prepare:commit",
@@ -17,9 +19,10 @@
     "chai": "4.1.2",
     "jsdom": "11.11.0",
     "mocha": "5.2.0",
-    "sinon": "6.0.1",
     "np": "3.0.4",
-    "uglify-js-es6": "2.8.9"
+    "sinon": "6.0.1",
+    "uglify-js-es6": "2.8.9",
+    "vl-ui-util": "^2.0.4"
   },
   "publishConfig": {
     "registry": "http://artifactory-pr-build.lb.cumuli.be:8081/artifactory/api/npm/acd-npm/"

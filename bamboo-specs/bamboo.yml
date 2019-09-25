@@ -1,0 +1,63 @@
+---
+version: 2
+plan:
+  project-key: WEBCO
+  key: GDPR
+  name: webcomponent-gdpr
+
+triggers:
+  - polling: 130
+
+variables:
+  release_version: patch
+
+stages:
+  - Build:
+      jobs:
+        - Build
+  - Release:
+      manual: true
+      jobs:
+        - Release
+
+Build:
+  key: BD
+  tasks:
+    - clean
+    - script:
+        scripts:
+          - 'docker-compose -f test/docker-compose.yml up --exit-code-from tests'
+          - /opt/scripts/docker/stop-docker-containers.sh
+  requirements:
+    - REMOTE_ONLY
+
+Release:
+  key: REL
+  tasks:
+    - clean
+    - script:
+        scripts:
+          - /opt/scripts/git/git-repository-information-restore.sh
+          - 'docker run -e GIT_REPO=${bamboo_repository_git_repositoryUrl} -e
+            RELEASE_VERSION=${bamboo.release_version}
+            acd-docker.repository.milieuinfo.be/milieuinfo/wc-release:1.0.0'
+          - /opt/scripts/docker/stop-docker-containers.sh
+  requirements:
+    - REMOTE_ONLY
+
+---
+version: 2
+plan:
+  key: GDPR
+
+plan-permissions:
+  - groups:
+      - bamboo-admin
+      - bamboo-release
+      - developer-admin
+    permissions:
+      - view
+      - edit
+      - build
+      - clone
+      - admin

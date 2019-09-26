@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Stel een nieuwe feature voor
-title: "[Feature request] - "
+title: "[FEATURE] - "
 labels: enhancement
 assignees: coemans
 

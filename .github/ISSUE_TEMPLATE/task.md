@@ -1,7 +1,7 @@
 ---
 name: Task
 about: Onderhoud en/of kleine aanpassingen aan de code
-title: "[Task] - "
+title: "[TASK] - "
 labels: chore
 assignees: coemans
 

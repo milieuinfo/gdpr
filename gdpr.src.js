@@ -509,7 +509,7 @@
                     url: matomoOefenUrl
                 },
                 {
-                    pattern: /^https?:\/\/oefen\.milieuinfo\.be(:\d+)?\/acdrupal,
+                    pattern: /^https?:\/\/oefen\.milieuinfo\.be(:\d+)?\/acdrupal/,
                     id: 21,
                     url: matomoOefenUrl
                 },
@@ -579,7 +579,7 @@
                     url: matomoOntwikkelUrl
                 },
                 {
-                    pattern: /^https?:\/\/ontwikkel\.milieuinfo\.be(:\d+)?\/acdrupal,
+                    pattern: /^https?:\/\/ontwikkel\.milieuinfo\.be(:\d+)?\/acdrupal/,
                     id: 28,
                     url: matomoOntwikkelUrl
                 }

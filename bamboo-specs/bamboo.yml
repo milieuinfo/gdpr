@@ -1,9 +1,9 @@
 ---
 version: 2
 plan:
-  project-key: WEBCO
-  key: GDPR
-  name: webcomponent-gdpr
+  project-key: GDPR
+  key: GDPRBUILD
+  name: GDPR
 
 triggers:
   - polling: 130
@@ -24,10 +24,11 @@ Build:
   key: BD
   tasks:
     - clean
-    - script:
-        scripts:
-          - 'docker-compose -f test/docker-compose.yml up --exit-code-from tests'
-          - /opt/scripts/docker/stop-docker-containers.sh
+    - script: |
+        #!/usr/env/bin bash
+        set -e
+        docker-compose -f test/docker-compose.yml up --exit-code-from tests
+        /opt/scripts/docker/stop-docker-containers.sh
   requirements:
     - REMOTE_ONLY
 
@@ -35,20 +36,18 @@ Release:
   key: REL
   tasks:
     - clean
-    - script:
-        scripts:
-          - /opt/scripts/git/git-repository-information-restore.sh
-          - 'docker run -e GIT_REPO=${bamboo_repository_git_repositoryUrl} -e
-            RELEASE_VERSION=${bamboo.release_version}
-            acd-docker.repository.milieuinfo.be/milieuinfo/wc-release:1.0.0'
-          - /opt/scripts/docker/stop-docker-containers.sh
+    - script: |
+        #!/usr/env/bin bash
+        /opt/scripts/git/git-repository-information-restore.sh
+        docker run -e GIT_REPO=${bamboo_repository_git_repositoryUrl} -e RELEASE_VERSION=${bamboo.release_version} acd-docker.repository.milieuinfo.be/milieuinfo/wc-release:1.0.0
+        /opt/scripts/docker/stop-docker-containers.sh
   requirements:
     - REMOTE_ONLY
 
 ---
 version: 2
 plan:
-  key: GDPR
+  key: VLUIFORMMESSAGE
 
 plan-permissions:
   - groups:

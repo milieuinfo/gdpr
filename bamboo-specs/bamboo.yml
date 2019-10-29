@@ -47,7 +47,7 @@ Release:
 ---
 version: 2
 plan:
-  key: VLUIFORMMESSAGE
+  key: GDPRBUILD
 
 plan-permissions:
   - groups:

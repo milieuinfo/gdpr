@@ -436,6 +436,10 @@
                 'erkenningencontactgegevens-ontwikkel.omgeving.vlaanderen.be': {
                     'id': 24,
                     'url': matomoOntwikkelUrl
+                },
+                'loket-erkenningen-leefmilieu-ontwikkel.omgeving.vlaanderen.be': {
+                    'id': 30,
+                    'url': matomoOntwikkelUrl
                 }
             }[window.location.host];
 
@@ -475,6 +479,10 @@
                     },
                     'erkenningencontactgegevens-oefen.omgeving.vlaanderen.be': {
                         'id': 16,
+                        'url': matomoOefenUrl
+                    },
+                    'loket-erkenningen-leefmilieu-oefen.omgeving.vlaanderen.be': {
+                        'id': 23,
                         'url': matomoOefenUrl
                     }
                 }[window.location.host];
@@ -524,6 +532,10 @@
                     },
                     'erkenningencontactgegevens.omgeving.vlaanderen.be': {
                         'id':44,
+                        'url': matomoProdUrl
+                    },
+                    'loket-erkenningen-leefmilieu.omgeving.vlaanderen.be': {
+                        'id':52,
                         'url': matomoProdUrl
                     }
                 }[window.location.host];
